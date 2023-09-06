@@ -8,9 +8,15 @@
 	"graphql-config.dotEnvPath": "./.env",
 	"graphql-config.load.configName": "graphql",
 	"files.associations": {
-		"*.css": "tailwindcss"
+		"*.css": "tailwindcss",
 	},
 	"editor.quickSuggestions": {
 		"strings": true
-	}
+	},
+	
+	"eslint.workingDirectories": [
+	"./my-little-ecommerce"
+	]
+	  
+	
 }

@@ -2,7 +2,8 @@
 	"$schema": "https://json.schemastore.org/eslintrc.json",
 	"plugins": ["@typescript-eslint", "import"],
 	"parserOptions": {
-		"project": "tsconfig.json"
+		"project": "tsconfig.json",
+		"tsconfigRootDir": "."
 	},
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
