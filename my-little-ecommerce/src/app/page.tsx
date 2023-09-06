@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 // import { type PageInfo } from 'next/dist/build/utils'
+// import {} ./app/..............
 
 export default function Home() {
 	return (
