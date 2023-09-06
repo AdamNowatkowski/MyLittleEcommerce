@@ -5,7 +5,7 @@ const products: ProductItemType[] = [
 	{
 		id: "1",
 		category: "Kubki",
-		productName: "Kubeczek",
+		productName: "Kubeczek Z Brzydkim Zdjęciem",
 		price: 10000,
 		coverImage: {
 			alt: "Zdjęcie kubeczka",
@@ -35,7 +35,7 @@ const products: ProductItemType[] = [
 	{
 		id: "4",
 		category: "Czapki",
-		productName: "Czapka Czarna",
+		productName: "Czapka Czarna Zimowa",
 		price: 40000,
 		coverImage: {
 			alt: "Zdjęcie czarnej czapki",
