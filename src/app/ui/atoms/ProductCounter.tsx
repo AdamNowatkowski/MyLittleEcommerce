@@ -5,15 +5,19 @@ import {
 	usePathname,
 	useRouter,
 	useSearchParams,
+	useSelectedLayoutSegment,
+	useSelectedLayoutSegments,
 } from "next/navigation";
 import { type ReactNode, useState, useEffect } from "react";
 
 export const ProductCounter = ({ children }: { children: ReactNode }) => {
-	useParams();
-	useSearchParams();
-	usePathname();
+	useParams(); // interesting and useful
+	useSearchParams(); // interesting and useful
+	usePathname(); // interesting and useful
+	useSelectedLayoutSegment();
+	useSelectedLayoutSegments();
 
-	console.log(useRouter()); //ciekawostka pokazuje wszystko co jest w routerze w konsoli
+	// console.log(useRouter()); //ciekawostka pokazuje wszystko co jest w routerze w konsoli
 	const router = useRouter();
 
 	const isLoggedIn = () => {
