@@ -13,16 +13,13 @@ export const ActiveLink = ({
 	href: string;
 	children: ReactNode;
 	className: string;
-	activeClassName: string
+	activeClassName: string;
 }) => {
 	const pathname = usePathname();
 	const isActive = pathname === href;
 
 	return (
-		<Link
-			href={href}
-			className={clsx(className, isActive && activeClassName )}
-		>
+		<Link href={href} className={clsx(className, isActive && activeClassName)}>
 			{children}
 		</Link>
 	);

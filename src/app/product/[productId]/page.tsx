@@ -16,7 +16,7 @@ export const generateMetadata = async ({params}: {params: {productId : string}})
 	const product = await getProductById(params.productId);
 	return {
 		title: `${product.productName} - My Little Ecommerce`,
-		description: "Product page description",
+		description: `${product.productName}`,
 		openGraph: {
 			title: `${product.productName} - My Little Ecommerce`,
 			description: "Product page description",
@@ -40,6 +40,7 @@ export default async function SingleProductPage({
 			<article className="max-w-xs">
 				<ProductCoverImage {...product.coverImage} />
 				<ProductItemDescription product={product} />
+				<p>{product.description}</p>
 			</article>
 			<aside>
 				<h2 className="mt-3">Suggested Products</h2>
