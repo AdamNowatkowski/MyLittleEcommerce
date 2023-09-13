@@ -38,6 +38,7 @@ export default async function SingleProductPage({
 	return (
 		<>
 			<article className="max-w-xs">
+				<h1 className="font-bold text-2xl mb-3">{product.productName}</h1>
 				<ProductCoverImage {...product.coverImage} />
 				<ProductItemDescription product={product} />
 				<p>{product.description}</p>

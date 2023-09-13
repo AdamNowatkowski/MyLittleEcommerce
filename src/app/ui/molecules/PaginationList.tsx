@@ -12,13 +12,13 @@ export const PaginationList = ({
 }) => {
 
 	return (
-		<div aria-label="Pagination" className="mt-8 flex justify-center space-x-2">
+		<div aria-label="Pagination" className="mb-5 flex justify-center space-x-2">
 			{Array.from(Array(paginationLenght - 1).keys()).map((pageNumber) => (
 				<ActiveLink
                     key={pageNumber}
                     href={"/products/" + (pageNumber + 1)}
-                    className=" border-2 border-slate-900 rounded-md p-2 hover:bg-slate-500"
-                    activeClassName = "font-bold border-5 bg-slate-500"
+                    className="p-2 text-xl hover:scale-110 "
+                    activeClassName = "font-bold scale-110"
                 >
 					{pageNumber + 1}
 				</ActiveLink>
