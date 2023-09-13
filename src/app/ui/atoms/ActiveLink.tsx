@@ -16,10 +16,13 @@ export const ActiveLink = ({
 	className: string;
 	activeClassName: string;
 }) => {
-	const pathname = usePathname();
-	let isActive = pathname === href
-	if (pathname === "/products" && href === "/products/1") {
-		isActive = true;}
+	const pathname = usePathname() as Route;
+	let isActive = pathname === href;
+	const productPage: Route = "/products";
+	const hrefForLandingProductPage = "/products/1" as Route;
+	if (pathname === productPage && href === hrefForLandingProductPage) {
+		isActive = true;
+	}
 
 	return (
 		<Link href={href} className={clsx(className, isActive && activeClassName)}>
