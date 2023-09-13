@@ -24,10 +24,10 @@ export default function RootLayout({
 					<h1 className="text-2xl font-bold">My Little Ecommerce</h1>
 					<ul className="flex space-x-4 ">
 						<li>
-							<ActiveLink href="/" >Home</ActiveLink>
+							<ActiveLink href="/" className="text-orange-400 hover:text-orange-600" activeClassName="font-bold">Home</ActiveLink>
 						</li>
 						<li>
-							<ActiveLink href="/products" >Products</ActiveLink>
+							<ActiveLink href="/products" className="text-orange-400 hover:text-orange-600" activeClassName="font-bold">All</ActiveLink>
 						</li>
 					</ul>
 				</nav>
