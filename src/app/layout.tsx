@@ -22,30 +22,33 @@ export default function RootLayout({
 	return (
 		<html lang="pl">
 			<body className='bg-black text-white'>
-				<nav className="flex items-center justify-between p-4">
-					<Link href='/'>
+				<nav className="sticky top-0 z-20 border-b bq-white bg-opacity-60 backdrop-blur-lg">
+					
+					<ul className="flex h-16 max-w-full space-x-8 whitespace-nowrap lg:px-8">
+						<li>
+						<Link href='/'>
 					<Image
 						src="/logo.svg"
 						width={100}
 						height={100}
 						alt="Brand Logo"
-						className="h-32 w-32 ml-10 mr-10 p-4 overflow-auto "
+						className="h-full w-full ml-10 mr-10 p-2 overflow-auto "
 						/>
 					</Link>
-					<ul className="flex space-x-4 ml-10 mr-10">
-						<li>
+						</li>
+						<li className="first:pl-4 last:pr-4 lg:px-0">
 							<ActiveLink
 								href="/"
-								className="hover:text-gray-200"
+								className="hover:text-gray-200 h-full w-full min-w-[3rem] flex items-center justify-center"
 								activeClassName="font-bold border-2 border-b-white border-l-black border-t-black border-r-black"
 							>
 								Home
 							</ActiveLink>
 						</li>
-						<li>
+						<li className="first:pl-4 last:pr-4 lg:px-0">
 							<ActiveLink
 								href="/products"
-								className="hover:text-gray-200"
+								className="hover:text-gray-200 h-full w-full min-w-[3rem] flex items-center justify-center"
 								activeClassName="font-bold border-2 border-b-white border-l-black border-t-black border-r-black"
 							>
 								All

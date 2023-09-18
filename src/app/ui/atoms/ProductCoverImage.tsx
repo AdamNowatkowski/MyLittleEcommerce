@@ -6,7 +6,7 @@ export const ProductCoverImage = ({
 	alt: string;
 }) => {
 	return (
-		<div className="aspect-square overflow-hidden rounded-md border ">
+		<div className="aspect-square overflow-hidden rounded-md border bg-white">
 			<img
 				width={320}
 				height={320}
