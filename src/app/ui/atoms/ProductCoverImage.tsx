@@ -12,7 +12,7 @@ export const ProductCoverImage = ({
 				height={320}
 				alt={alt}
 				src={src}
-				className="h-full w-full object-contain object-center p-4 transition-transform hover:scale-105"
+				className="h-full w-full object-scale-down p-4 transition-transform hover:scale-105 bg-inherit"
 			/>
 		</div>
 	);
