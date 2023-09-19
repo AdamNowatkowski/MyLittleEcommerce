@@ -1,8 +1,8 @@
+import {ShoppingCart} from 'lucide-react';
 import { type Route } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ActiveLink } from "../atoms/ActiveLink";
-import {ShoppingCart} from 'lucide-react';
 
 export async function Nav() {
 	const navLinks = [

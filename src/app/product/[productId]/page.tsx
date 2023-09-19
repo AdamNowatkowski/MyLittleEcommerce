@@ -2,8 +2,9 @@ import { Suspense } from "react";
 import { type Metadata } from "next/types";
 import { getProductById, getProductsList } from "@/api/products";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
-import { ProductItemDescription } from "@/app/ui/atoms/ProductItemDescription";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
+import { formatMoney } from "@/app/utils";
+
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -49,7 +50,7 @@ export default async function SingleProductPage({
 						</h1>
 						<div className="mt-4 flex items-center">
 							<p className="text-2xl font-semibold ">
-								{product.price}
+								{formatMoney(product.price / 100)}
 							</p>
 						</div>
 						<div className="mt-4 space-y-6">
