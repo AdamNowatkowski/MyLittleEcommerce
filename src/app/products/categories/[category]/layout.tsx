@@ -3,8 +3,8 @@ import { type ReactNode } from "react";
 export const generateStaticParams = async () => {
 	return [
 		{ category: "t-shirts" },
-		{ category: "jackets" },
-		{ category: "boots" },
+		{ category: "hoodies" },
+		{ category: "accessories" },
 	];
 };
 

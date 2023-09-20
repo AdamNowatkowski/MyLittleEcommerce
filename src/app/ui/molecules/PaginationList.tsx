@@ -17,7 +17,7 @@ export const PaginationList = ({
 
 	return (
 		<div aria-label="Pagination" className="mb-5 flex justify-center space-x-2">
-			{Array.from(Array(paginationLenght - 1).keys()).map((pageNumber) => (
+			{Array.from(Array(paginationLenght).keys()).map((pageNumber) => (
 				
 				
 				<ActiveLink

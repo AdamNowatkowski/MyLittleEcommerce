@@ -1,48 +1,28 @@
-import { type ProductItemType } from "../app/ui/types";
-
-type ProductResponseItem = {
-    id: string;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    rating: {
-        rate: number;
-        count: number;
-    };
-    image: string;
-    longDescription: string;
-};
+import {
+	ProductsGetByCategorySlugDocument,
+	ProductsGetListDocument,
+	ProductGetByIdDocument,
+} from "../gql/graphql";
+import { executeGraphql } from "./graphqlApi";
 
 export const getProductsList = async () => {
-	const res = await fetch("https://naszsklep-api.vercel.app/api/products");
+	const qraphqlResponse = await executeGraphql(ProductsGetListDocument, {});
 
-
-	const productsResponse = (await res.json()) as ProductResponseItem[];
-
-	const products = productsResponse.map(productResponseItemToProductItemType);
-	return products;
+	return qraphqlResponse.products;
 };
 
-export const getProductById = async (id: ProductResponseItem['id']) => {
-    const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`)
-    const productResponse = (await res.json()) as ProductResponseItem; 
-    
-    return productResponseItemToProductItemType(productResponse)
-}
+export const getProductById = async (id: string) => {
+	{
+		const qraphqlResponse = await executeGraphql(ProductGetByIdDocument, { id: id });
+		return qraphqlResponse.products;
+	}
+};
 
-const productResponseItemToProductItemType = (product: ProductResponseItem): ProductItemType => {
-    return {
-			id: product.id,
-			productName: product.title,
-			price: product.price * 1000,
-			category: product.category,
-			coverImage: {
-				alt: product.title,
-				src: product.image,
-			},
-            description: product.description,
-        
-    }
-    
-}
+export const getProductsByCategorySlug = async (category: string) => {
+	const qraphqlResponse = await executeGraphql(ProductsGetByCategorySlugDocument, {
+		slug: category,
+	});
+	const products = qraphqlResponse.categories[0]?.products;
+
+	return products
+};
