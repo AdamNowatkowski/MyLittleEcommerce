@@ -1,13 +1,9 @@
-export const ProductImage = ({
-	src,
-	alt,
-}: {
-	src: string;
-	alt: string;
-}) => {
+import NextImage from "next/image";
+
+export const ProductImage = ({ src, alt }: { src: string; alt: string }) => {
 	return (
 		<div className="overflow-hidden rounded-md border bg-white">
-			<img
+			<NextImage
 				width={320}
 				height={320}
 				alt={alt}

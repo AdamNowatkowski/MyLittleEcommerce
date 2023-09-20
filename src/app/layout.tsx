@@ -1,11 +1,11 @@
 import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Nav } from "./ui/organisms/NavBar";
 
-// const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
 export const metadata: Metadata = {
 	title: "My Little Ecommerce",
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="pl" className="h-full bg-black text-white">
-			<body className='h-full'>
+			<body className={inter.className + " h-full"}>
 				<Nav />
 				<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
 					{children}

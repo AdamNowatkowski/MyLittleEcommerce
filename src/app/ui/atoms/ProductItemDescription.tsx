@@ -1,27 +1,14 @@
 import { formatMoney } from "@/app/utils";
-import { getFragmentData, type FragmentType } from "@/gql/fragment-masking";
-import { graphql } from "@/gql/gql";
-
-const ProductItemDescription_Product = graphql(/* GraphQL */ `
-	fragment ProductItemDescription_Product on Product {
-		name
-		categories(first: 1) {
-			name
-		}
-		price
-	}
-`);
+import { type ProductListItemFragment } from "@/gql/graphql";
 
 type ProductItemDescriptionProps = {
-	product: FragmentType<typeof ProductItemDescription_Product>;
+	product: ProductListItemFragment;
 };
 
-export const ProductItemDescription = (props: ProductItemDescriptionProps) => {
-	// if (categories === undefined) throw new Error("Product must have at least one category");
-	const { name, categories, price } = getFragmentData(
-		ProductItemDescription_Product,
-		props.product,
-	);
+
+export const ProductItemDescription = ({
+	product: {name, categories, price}} : ProductItemDescriptionProps) => {	
+
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>

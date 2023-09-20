@@ -1,3 +1,5 @@
+import NextImage from "next/image";
+
 export const ProductCoverImage = ({
 	src,
 	alt,
@@ -7,12 +9,12 @@ export const ProductCoverImage = ({
 }) => {
 	return (
 		<div className="aspect-square overflow-hidden rounded-md border bg-white">
-			<img
+			<NextImage
 				width={320}
 				height={320}
 				alt={alt}
 				src={src}
-				className="h-full w-full object-scale-down p-4 transition-transform hover:scale-105 bg-inherit"
+				className="h-full w-full bg-inherit object-scale-down p-4 transition-transform hover:scale-105"
 			/>
 		</div>
 	);

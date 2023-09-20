@@ -8,8 +8,8 @@ import { formatMoney } from "@/app/utils";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
-	return products.map((product?) => ({
-		productId: product.id as string,
+	return products.map((product?: { id: string }) => ({
+		productId: product?.id,
 	}));
 };
 
