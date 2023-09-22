@@ -18,13 +18,14 @@ export default async function ProductsPage({
 	params: { pagination: string };
 }) {
 	const products = await getProductsList();
-
+	console.log((products.length))
+	console.log("-----------------------------------------")
 	const paginationValidation =
 		parseInt(params.pagination)-1 > Math.ceil(products.length) / 4 ||
 		parseInt(params.pagination) <= 0 ||
 		isNaN(parseInt(params.pagination));
 	if (paginationValidation) {
-		notFound();
+		throw notFound();
 	}
 
 

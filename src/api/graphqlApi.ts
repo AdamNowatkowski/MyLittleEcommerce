@@ -31,6 +31,6 @@ export const executeGraphql = async <TResult, TVariables>(
 			cause: qraphqlResponse.errors[0]?.message,
 		});
 	}
-
+	
 	return qraphqlResponse.data;
 };
