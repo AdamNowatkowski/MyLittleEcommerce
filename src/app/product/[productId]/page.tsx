@@ -6,12 +6,13 @@ import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 
-export const generateStaticParams = async () => {
-	const products = await getProductsList();
-	return products.map((product?: { id: string }) => ({
-		productId: product?.id,
-	}));
-};
+// export const generateStaticParams = async () => {
+// 	const products = await getProductsList();
+// 	return products.map((product?: { id: string }) => ({
+// 		productId: product?.id,
+// 	}));
+// };
+// commented out for hyghraph development purposes
 
 export const generateMetadata = async ({
 	params,
