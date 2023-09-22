@@ -1,10 +1,10 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
-import { getProductById, getProductsList } from "@/api/products";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
+import { getProductById } from "@/api/products";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList();
@@ -13,6 +13,10 @@ import { formatMoney } from "@/app/utils";
 // 	}));
 // };
 // commented out for hyghraph development purposes
+<<<<<<< HEAD
+=======
+// after deleting comment add proper import
+>>>>>>> 7024df0 (next hygraph optimalization)
 
 export const generateMetadata = async ({
 	params,
@@ -20,11 +24,13 @@ export const generateMetadata = async ({
 	params: { productId: string };
 }): Promise<Metadata> => {
 	const products = await getProductById(params.productId);
-	if (products[0] === undefined)
-		{ throw notFound;}
+	if (products[0] === undefined) {
+		throw notFound;
+	}
 	const product = products[0];
-	if (product.images[0]?.url === undefined)
-		{ throw notFound;}
+	if (product.images[0]?.url === undefined) {
+		throw notFound;
+	}
 	const [name, image] = [product.name, product.images[0]?.url];
 
 	if (!product) {
@@ -50,16 +56,18 @@ export default async function SingleProductPage({
 }) {
 	// const refferal = searchParams.refferal.toString();
 	const products = await getProductById(params.productId);
-	if (products[0] === undefined)
-		{ throw notFound;}
-	const product = products[0]
-	if (product.images[0]?.url === undefined)
-		{ throw notFound;}
+	if (products[0] === undefined) {
+		throw notFound;
+	}
+	const product = products[0];
+	if (product.images[0]?.url === undefined) {
+		throw notFound;
+	}
 	return (
 		<>
 			<article className="">
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-					<ProductImage src={product.images[0]?.url} alt='' />
+					<ProductImage src={product.images[0]?.url} alt="" />
 					<div className="px-6">
 						<h1 className="flex-auto text-3xl font-bold tracking-tight">
 							{product.name}
