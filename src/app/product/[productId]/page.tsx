@@ -13,10 +13,7 @@ import { getProductById } from "@/api/products";
 // 	}));
 // };
 // commented out for hyghraph development purposes
-<<<<<<< HEAD
-=======
 // after deleting comment add proper import
->>>>>>> 7024df0 (next hygraph optimalization)
 
 export const generateMetadata = async ({
 	params,
