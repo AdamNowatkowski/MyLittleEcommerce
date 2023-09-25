@@ -29,7 +29,7 @@ export default async function CategoryProductPage({
 		throw notFound;
 	}
 	const paginationValidation =
-		parseInt(params.pagination) - 1 > Math.ceil(products.length) / 4 ||
+		parseInt(params.pagination) > Math.ceil(products.length) / 4 ||
 		parseInt(params.pagination) <= 0 ||
 		isNaN(parseInt(params.pagination));
 
