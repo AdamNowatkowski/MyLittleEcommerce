@@ -2,7 +2,7 @@
 
 import { type Route } from "next";
 // import clsx from "clsx";
-import { usePathname, redirect } from "next/navigation";
+import { usePathname, redirect, notFound } from "next/navigation";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 
 export const PaginationList = ({
@@ -12,7 +12,7 @@ export const PaginationList = ({
 	currentPagination: number;
 }) => {
 	const path = usePathname();
-	const toRoute = (pageNumber: number): Route => {
+	const toRoute = (pageNumber: number) => {
 		if (path.split('/')[1] === 'products' ) {
 		return ("/products/" + (pageNumber + 1)) as Route;}
 		else if (path.split('/')[1] === 'categories' ) {	
@@ -28,8 +28,9 @@ export const PaginationList = ({
 			path.split("/")[2] +
 			"/" +
 			(pageNumber + 1)) as Route;
-}
-}
+	
+} return path as Route
+} 
 
 	return (
 		<div

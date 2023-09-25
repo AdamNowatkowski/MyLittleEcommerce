@@ -19,24 +19,6 @@ export async function BestRatedProducts() {
 	const products = await getProductsList();
 
 	const sortedProductsByReview = sortProductsByReviews(products);
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-
-	console.log(products);
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-
-	console.log(sortedProductsByReview);
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
-	console.log("------------------");
 
 	return <ProductList products={sortedProductsByReview.slice(0, 4)} />;
 }
