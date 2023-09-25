@@ -19,7 +19,6 @@ export const executeGraphql = async <TResult, TVariables>(
 			"Content-Type": "application/json"
 		},
 	});
-
 	type GrahQLResponse<T> =
 		| { data?: undefined; errors: { message: string }[] }
 		| { data: T; errors?: undefined };

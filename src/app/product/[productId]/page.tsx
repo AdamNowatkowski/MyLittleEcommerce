@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
+import { VariantsList } from "@/app/ui/molecules/VariantsList";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 import { getProductById } from "@/api/products";
@@ -76,7 +77,9 @@ export default async function SingleProductPage({
 						</div>
 						<div className="mt-4 space-y-6">
 							<p className="">{product.description}</p>
+							<VariantsList id={params.productId} />
 						</div>
+						
 						<div className="mt-6 flex items-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
