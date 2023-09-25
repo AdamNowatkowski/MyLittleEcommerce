@@ -1,0 +1,5 @@
+query ColectionsGetList {
+	collections(first: 3) {
+		...CollectionSingle
+	}
+}

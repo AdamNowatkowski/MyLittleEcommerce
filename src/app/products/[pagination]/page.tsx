@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { ProductList } from "../../ui/organisms/ProductList";
-import { getProductsList } from "../../../api/products";
-import { PaginationList } from "../../ui/molecules/PaginationList";
+import { ProductList } from "@/app/ui/organisms/ProductList";
+import { getProductsList } from "@/api/products";
+import { PaginationList } from "@/app/ui/molecules/PaginationList";
 
 export const generateStaticParams = async () => {
 	return [
@@ -19,13 +19,12 @@ export default async function ProductsPage({
 }) {
 	const products = await getProductsList();
 	const paginationValidation =
-		parseInt(params.pagination)-1 > Math.ceil(products.length) / 4 ||
+		parseInt(params.pagination) - 1 > Math.ceil(products.length) / 4 ||
 		parseInt(params.pagination) <= 0 ||
 		isNaN(parseInt(params.pagination));
 	if (paginationValidation) {
 		throw notFound();
 	}
-
 
 	const paginatedProducts = products.slice(
 		parseInt(params.pagination) * 4 - 4,

@@ -10,5 +10,8 @@ query ProductGetById($id: ID!) {
 			url
 		}
 		price
+		reviews {
+			rating
+		}
 	}
 }

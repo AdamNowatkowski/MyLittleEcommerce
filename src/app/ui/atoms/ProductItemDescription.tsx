@@ -5,10 +5,9 @@ type ProductItemDescriptionProps = {
 	product: ProductListItemFragment;
 };
 
-
 export const ProductItemDescription = ({
-	product: {name, categories, price}} : ProductItemDescriptionProps) => {	
-
+	product: { name, categories, price, reviews },
+}: ProductItemDescriptionProps) => {
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>
@@ -20,10 +19,19 @@ export const ProductItemDescription = ({
 					</p>
 				)}
 			</div>
-			<p className="px-3 text-sm font-medium">
-				<span className="sr-only ">Cena:</span>
-				{formatMoney(price / 100)}
-			</p>
+			<div>
+				<p className="px-3 text-sm font-medium">
+					<span className="sr-only ">Cena:</span>
+					{formatMoney(price / 100)}
+				</p>
+				<p className="px-3 text-sm font-medium">
+					{reviews[0] &&
+						(
+							reviews.reduce((sum, review) => sum + review.rating, 0) /
+							reviews.length
+						).toFixed(1) + "/5"}
+				</p>
+			</div>
 		</div>
 	);
 };

@@ -8,9 +8,9 @@ export async function Nav() {
 	const navLinks = [
 		{ href: "/products" as Route, label: "All" },
 		{ href: "/" as Route, label: "Home" },
-		{ href: "/products/categories/t-shirts" as Route, label: "T-Shirts" },
-		{ href: "/products/categories/hoodies" as Route, label: "Hoodies" },
-		{ href: "/products/categories/accessories" as Route, label: "Accessories" },
+		{ href: "/categories/t-shirts" as Route, label: "T-Shirts" },
+		{ href: "/categories/hoodies" as Route, label: "Hoodies" },
+		{ href: "/categories/accessories" as Route, label: "Accessories" },
 	];
 	return (
 		<div className="border-b-2 bg-gray-950 sticky top-0 z-20 bg-opacity-60 backdrop-blur-lg">

@@ -2,6 +2,8 @@ import {
 	ProductsGetByCategorySlugDocument,
 	ProductsGetListDocument,
 	ProductGetByIdDocument,
+	ColectionsGetListDocument,
+	ProductsGetByCollectionSlugDocument
 } from "../gql/graphql";
 import { executeGraphql } from "./graphqlApi";
 
@@ -25,4 +27,19 @@ export const getProductsByCategorySlug = async (category: string) => {
 	const products = qraphqlResponse.categories[0]?.products;
 
 	return products
+};
+
+export const getProductsByCollectionSlug = async (collection: string) => {
+	const qraphqlResponse = await executeGraphql(ProductsGetByCollectionSlugDocument, {
+		slug: collection,
+	});
+	const products = qraphqlResponse.collections[0]?.products;
+
+	return products
+};
+
+export const getCollectionsList = async () => {
+	const qraphqlResponse = await executeGraphql(ColectionsGetListDocument, {});
+
+	return qraphqlResponse.collections;
 };
