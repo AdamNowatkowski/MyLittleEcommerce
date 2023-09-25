@@ -2,7 +2,7 @@
 
 import { type Route } from "next";
 // import clsx from "clsx";
-import { usePathname, redirect, notFound } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 
 export const PaginationList = ({
