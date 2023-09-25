@@ -3,7 +3,7 @@ import { CollectionList } from "@/app/ui/organisms/CollectionList";
 import { getCollectionsList } from "@/api/products";
 
 
-export async function HomePage() {
+export default async function HomePage() {
 	const collections = await getCollectionsList();
 
 	return (
@@ -17,5 +17,3 @@ export async function HomePage() {
 		</div>
 	);
 }
-
-export default HomePage;
