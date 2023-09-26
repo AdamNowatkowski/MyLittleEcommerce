@@ -34,7 +34,8 @@ export const Variants = ({ variants }: SingleProductVariantProps) => {
 	return (
 		<div className="bg-black">
 			{variants && variants.length > 0 && (
-				<select className="bg-black"
+				<select
+					className="bg-black"
 					name="variants-size"
 					id="variants-size-id"
 					value={searchParams.get("variant") || "Size/Color"}
@@ -49,7 +50,7 @@ export const Variants = ({ variants }: SingleProductVariantProps) => {
 					}
 				>
 					<option disabled className="">
-						Size/Color
+						Variants
 					</option>
 					{variants.map((v) => (
 						<option key={v.id} value={v.name}>

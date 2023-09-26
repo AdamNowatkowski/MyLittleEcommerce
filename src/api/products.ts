@@ -1,4 +1,6 @@
+import { Search } from "lucide-react";
 import { executeGraphql } from "@/api/graphqlApi";
+
 import {
 	ProductsGetByCategorySlugDocument,
 	ProductsGetListDocument,
@@ -7,6 +9,7 @@ import {
 	ProductsGetByCollectionSlugDocument,
 	ProductGetVariantsListDocument,
 	type ProductListItemFragment,
+	ProductsGetBySearchDocument,
 } from "@/gql/graphql";
 
 export const getProductsList = async () => {
@@ -69,4 +72,13 @@ export const getVariants = async (id: string) => {
 	);
 
 	return qraphqlResponse.product?.variants;
+};
+
+export const getSearchProducts = async (search: string) => {
+	const qraphqlResponse = await executeGraphql(
+		ProductsGetBySearchDocument,
+		{ search: search },
+	);
+
+	return qraphqlResponse.products;
 };

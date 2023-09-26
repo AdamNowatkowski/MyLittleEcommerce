@@ -6,9 +6,7 @@ import { PaginationList } from "@/app/ui/molecules/PaginationList";
 export const generateStaticParams = async () => {
 	return [
 		{ pagination: "1" },
-		{ pagination: "2" },
-		{ pagination: "3" },
-		{ pagination: "4" },
+		{ pagination: "2" }
 	];
 };
 

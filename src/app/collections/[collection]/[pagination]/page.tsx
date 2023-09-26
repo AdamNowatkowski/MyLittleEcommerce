@@ -27,7 +27,7 @@ export default async function CollectionProductPage({
 }) {
 	const products = await getProductsByCollectionSlug(params.collection);
 	if (!products) {
-		throw notFound;
+		throw notFound();
 	}
 	const paginationValidation =
 		parseInt(params.pagination) - 1 > Math.ceil(products.length) / 4 ||

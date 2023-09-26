@@ -5,16 +5,14 @@ import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
-import { getProductById } from "@/api/products";
+import { getProductById, getProductsList } from "@/api/products";
 
-// export const generateStaticParams = async () => {
-// 	const products = await getProductsList();
-// 	return products.map((product?: { id: string }) => ({
-// 		productId: product?.id,
-// 	}));
-// };
-// commented out for hyghraph development purposes
-// after deleting comment add proper import
+export const generateStaticParams = async () => {
+	const products = await getProductsList();
+	return products.slice(0, 3).map((product?: { id: string }) => ({
+		productId: product?.id,
+	}));
+};
 
 export const generateMetadata = async ({
 	params,
@@ -23,16 +21,16 @@ export const generateMetadata = async ({
 }): Promise<Metadata> => {
 	const products = await getProductById(params.productId);
 	if (products[0] === undefined) {
-		throw notFound;
+		throw notFound();
 	}
 	const product = products[0];
 	if (product.images[0]?.url === undefined) {
-		throw notFound;
+		throw notFound();
 	}
 	const [name, image] = [product.name, product.images[0]?.url];
 
 	if (!product) {
-		throw notFound;
+		throw notFound();
 	}
 	return {
 		title: `${name} - My Little Ecommerce`,
@@ -55,11 +53,11 @@ export default async function SingleProductPage({
 	// const refferal = searchParams.refferal.toString();
 	const products = await getProductById(params.productId);
 	if (products[0] === undefined) {
-		throw notFound;
+		throw notFound();
 	}
 	const product = products[0];
 	if (product.images[0]?.url === undefined) {
-		throw notFound;
+		throw notFound();
 	}
 	return (
 		<>
@@ -79,7 +77,7 @@ export default async function SingleProductPage({
 							<p className="">{product.description}</p>
 							<VariantsList id={params.productId} />
 						</div>
-						
+
 						<div className="mt-6 flex items-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
