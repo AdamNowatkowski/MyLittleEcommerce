@@ -32,6 +32,9 @@ export default function RootLayout({
 					</p>
 					<p className="italic mt-2"><Link href='/polityka-prywatnosci'>Polityka Prywatności</Link></p>
 					<p className="italic"><Link href='/regulamin'>Regulamin</Link></p>
+					<p className="italic mt-4">THIS IS TRAINING ECOMMERCE SHOP - NOT REAL</p>
+					<p>ONE YOU CAN NOT BUY ITEMS PRESENTED HERE</p>
+					<p>Especially you can not buy Pomidor here!!!</p>
 				</footer>
 			</body>
 		</html>

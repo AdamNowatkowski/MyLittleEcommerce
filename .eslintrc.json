@@ -56,7 +56,7 @@
 
 		// we sometimes use async functions that don't await anything
 		"@typescript-eslint/require-await": "off",
-		
+
 		// make sure to `await` inside try…catch
 		"@typescript-eslint/return-await": ["error", "in-try-catch"],
 
@@ -71,6 +71,12 @@
 			"error",
 			{ "allowNumber": true, "allowBoolean": true }
 		],
+
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{ "checksVoidReturn": false }
+		],
+
 		"no-restricted-imports": [
 			"error",
 			{

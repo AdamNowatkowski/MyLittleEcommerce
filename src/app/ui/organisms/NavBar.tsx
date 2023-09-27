@@ -4,8 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchBar } from "@/app/ui/atoms/SearchBar";
+import { getCartFromCookies } from "@/api/cart";
 
 export async function Nav() {
+
+	const cart = await getCartFromCookies();
+	const quantity = cart?.orderItems.length ?? 0;
+	
+
 	const navLinks = [
 		{ href: "/products" as Route, label: "All" },
 		{ href: "/" as Route, label: "Home" },
@@ -56,7 +62,7 @@ export async function Nav() {
 							/>
 							<span className="sr-only">items in cart, view bag</span>
 						</Link>
-						<span className="ml-2 mr-4 text-sm font-bold">0</span>
+						<span className="ml-2 mr-4 text-sm font-bold">{quantity}</span>
 
 						</div>
 					</div>

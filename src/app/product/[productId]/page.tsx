@@ -1,21 +1,21 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
-// import { cookies } from "next/headers";
+import { revalidateTag } from "next/cache";
+import { AddToCartButton } from "@/app/ui/atoms/AddToCartButton";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
-import { getProductById, getProductsList } from "@/api/products";
-// import { executeGraphql } from "@/api/graphqlApi";
-// import { CartGetByIdDocument, CartCreateDocument } from "@/gql/graphql";
+import { getProductById } from "@/api/products";
+import { getOrCreateCart, addToCart } from "@/api/cart";
 
-export const generateStaticParams = async () => {
-	const products = await getProductsList();
-	return products.slice(0, 3).map((product?: { id: string }) => ({
-		productId: product?.id,
-	}));
-};
+// export const generateStaticParams = async () => {
+// 	const products = await getProductsList();
+// 	return products.slice(0, 3).map((product?: { id: string }) => ({
+// 		productId: product?.id,
+// 	}));
+// };
 
 export const generateMetadata = async ({
 	params,
@@ -60,12 +60,15 @@ export default async function SingleProductPage({
 		throw notFound();
 	}
 
-	// async function addToCartAction(form: FormData) {
-		// "use server";
+	async function addToCartAction(_formData: FormData) {
+		"use server";
 		// console.log(FormData)
-		// const cart = getOrCreateCart();
-		// await addToCart(cart.id, params.productId);
-	// }
+		const cart = await getOrCreateCart();
+
+		await addToCart(cart.id, params.productId);
+
+		revalidateTag("cart");
+	}
 
 	return (
 		<>
@@ -106,19 +109,13 @@ export default async function SingleProductPage({
 							<p className="ml-1 text-sm font-semibold ">In stock</p>
 						</div>
 						<div className="mt-8">
-							<form >
+							<form action={addToCartAction}>
 								<input
 									type="hidden"
 									name="productId"
 									value={product.id}
 								></input>
-								<button
-									type="submit"
-									data-testid="add-to-cart-button"
-									className="inline-flex h-14 w-full items-center justify-center rounded-md from-[#1e4b65] from-20% via-[#010315] to-[#0b237d] to-80% px-6 text-base font-medium leading-6 text-white shadow transition duration-150 ease-in-out enabled:bg-gradient-to-r hover:enabled:brightness-125 disabled:cursor-wait disabled:bg-gray-300"
-								>
-									Add to cart
-								</button>
+								<AddToCartButton />
 							</form>
 						</div>
 					</div>
@@ -133,23 +130,3 @@ export default async function SingleProductPage({
 		</>
 	);
 }
-
-// async function getOrCreateCart() {
-// 	const cartId = cookies().get("cartId")?.value;
-// 	if (cartId) {
-// 		const cart = await getCartById(cartId);
-// 		if (cart.order) {
-// 			return cart.order;
-// 		}
-// 	}
-// 	const cart = await createCart();
-// 	return cart.createOrder;
-// }
-
-// function getCartById(cartId: string) {
-// 	return executeGraphql(CartGetByIdDocument, { id: cartId });
-// }
-
-// function createCart() {
-// 	return executeGraphql(CartCreateDocument, {});
-// }

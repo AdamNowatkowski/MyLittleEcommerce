@@ -3,21 +3,21 @@ import { PaginationList } from "@/app/ui/molecules/PaginationList";
 import { ProductList } from "@/app/ui/organisms/ProductList";
 import { getProductsByCategorySlug } from "@/api/products";
 
-export const generateStaticParams = async ({
-	params,
-}: {
-	params: { category: string };
-}) => {
-	if (params.category === "t-shirts") {
-		return [{ pageNumber: "1" }, { pageNumber: "2" }];
-	} else if (params.category === "hoodies") {
-		return [{ pageNumber: "1" }];
-	} else if (params.category === "accessories") {
-		return [{ pageNumber: "1" }];
-	} else {
-		return [];
-	}
-};
+// export const generateStaticParams = async ({
+// 	params,
+// }: {
+// 	params: { category: string };
+// }) => {
+// 	if (params.category === "t-shirts") {
+// 		return [{ pageNumber: "1" }, { pageNumber: "2" }];
+// 	} else if (params.category === "hoodies") {
+// 		return [{ pageNumber: "1" }];
+// 	} else if (params.category === "accessories") {
+// 		return [{ pageNumber: "1" }];
+// 	} else {
+// 		return [];
+// 	}
+// };
 
 export default async function CategoryProductPage({
 	params,

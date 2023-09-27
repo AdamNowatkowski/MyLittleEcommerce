@@ -8,10 +8,11 @@ export default async function HomePage() {
 
 	return (
 		<div>
+			<h1>Our Collections</h1>
 			<div>
 			<CollectionList collections={collections} />
 			</div>
-			<h1>Loved by our clients!</h1>
+			<h2>Loved by our clients!</h2>
 			<p>BestSellers</p>
 			<BestRatedProducts />
 		</div>

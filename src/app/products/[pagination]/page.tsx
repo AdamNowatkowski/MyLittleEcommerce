@@ -3,12 +3,12 @@ import { ProductList } from "@/app/ui/organisms/ProductList";
 import { getProductsList } from "@/api/products";
 import { PaginationList } from "@/app/ui/molecules/PaginationList";
 
-export const generateStaticParams = async () => {
-	return [
-		{ pagination: "1" },
-		{ pagination: "2" }
-	];
-};
+// export const generateStaticParams = async () => {
+// 	return [
+// 		{ pagination: "1" },
+// 		{ pagination: "2" }
+// 	];
+// };
 
 export default async function ProductsPage({
 	params,

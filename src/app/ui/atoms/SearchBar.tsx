@@ -37,7 +37,7 @@ export const SearchBar = () => {
 
 	return (
 		<form
-			className="flex justify-between gap-3 p-2"
+			className="flex justify-between gap-3 p-3"
 			action={`/search`}
 			onSubmit={handleSearchSubmit}
 		>

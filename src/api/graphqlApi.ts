@@ -1,11 +1,16 @@
-import {
-	type TypedDocumentString,
-} from "../gql/graphql";
+import { type TypedDocumentString } from "../gql/graphql";
 
-export const executeGraphql = async <TResult, TVariables>(
-	query: TypedDocumentString<TResult, TVariables>,
-	variables: TVariables,
-): (Promise<TResult>) =>  {
+export const executeGraphql = async <TResult, TVariables>({
+	query,
+	variables,
+	next,
+	cache
+}: {
+	query: TypedDocumentString<TResult, TVariables>;
+	variables: TVariables;
+	next?: NextFetchRequestConfig;
+	cache?: RequestCache;
+}): Promise<TResult> => {
 	if (!process.env.GRAPHQL_URL) {
 		throw TypeError("GRAPHQL_URL is not defined");
 	}
@@ -16,8 +21,11 @@ export const executeGraphql = async <TResult, TVariables>(
 			variables,
 		}),
 		headers: {
-			"Content-Type": "application/json"
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${process.env.HYGRAPH_MUTATION_TOKEN}`,
 		},
+		next,
+		cache,
 	});
 	type GrahQLResponse<T> =
 		| { data?: undefined; errors: { message: string }[] }
@@ -30,6 +38,6 @@ export const executeGraphql = async <TResult, TVariables>(
 			cause: qraphqlResponse.errors[0]?.message,
 		});
 	}
-	
+
 	return qraphqlResponse.data;
 };
