@@ -42,7 +42,7 @@ export const SearchBar = () => {
 			onSubmit={handleSearchSubmit}
 		>
 			<input
-				className="bg-black p-3"
+				className="bg-inherit p-3"
 				type="search"
 				role="searchbox"
 				onChange={handleSearchOnChange}
@@ -50,7 +50,7 @@ export const SearchBar = () => {
 				placeholder="Search Products..."
 				aria-label="Search Products..."
 			/>
-			<button className=" bg-black" type="submit" aria-label="Search">
+			<button className=" bg-inherit" type="submit" aria-label="Search">
 				<Search className="h-6 w-6 flex-shrink-0 " />
 			</button>
 		</form>

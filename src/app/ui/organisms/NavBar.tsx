@@ -44,18 +44,21 @@ export async function Nav() {
 								))}
 							</ul>
 						</div>
-						<div className="">
+						{/* <div className="">
 							
-						</div>
-						<SearchBar />
-						<Link href="/cart" className="group-m-2 flex items-center">
+						</div> */}
+						<div className="group-m-2 flex items-center">
+						<div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-2 lg:space-x-6"><SearchBar /></div>
+						<Link href="/cart" >
 							<ShoppingCart
 								aria-hidden="true"
 								className="h-6 w-6 flex-shrink-0 "
 							/>
-							<span className="ml-2 mr-4 text-sm font-bold">0</span>
 							<span className="sr-only">items in cart, view bag</span>
 						</Link>
+						<span className="ml-2 mr-4 text-sm font-bold">0</span>
+
+						</div>
 					</div>
 				</nav>
 			</div>
