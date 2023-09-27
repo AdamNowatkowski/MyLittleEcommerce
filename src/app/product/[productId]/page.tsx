@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
-import { cookies } from "next/headers";
+// import { cookies } from "next/headers";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 import { getProductById, getProductsList } from "@/api/products";
-import { executeGraphql } from "@/api/graphqlApi";
-import { CartGetByIdDocument, CartCreateDocument } from "@/gql/graphql";
+// import { executeGraphql } from "@/api/graphqlApi";
+// import { CartGetByIdDocument, CartCreateDocument } from "@/gql/graphql";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -60,12 +60,12 @@ export default async function SingleProductPage({
 		throw notFound();
 	}
 
-	async function addToCartAction(form: FormData) {
-		"use server";
+	// async function addToCartAction(form: FormData) {
+		// "use server";
 		// console.log(FormData)
-		const cart = getOrCreateCart();
-		await addToCart(cart.id, params.productId);
-	}
+		// const cart = getOrCreateCart();
+		// await addToCart(cart.id, params.productId);
+	// }
 
 	return (
 		<>
@@ -106,7 +106,7 @@ export default async function SingleProductPage({
 							<p className="ml-1 text-sm font-semibold ">In stock</p>
 						</div>
 						<div className="mt-8">
-							<form action={addToCartAction}>
+							<form >
 								<input
 									type="hidden"
 									name="productId"
@@ -134,22 +134,22 @@ export default async function SingleProductPage({
 	);
 }
 
-async function getOrCreateCart() {
-	const cartId = cookies().get("cartId")?.value;
-	if (cartId) {
-		const cart = await getCartById(cartId);
-		if (cart.order) {
-			return cart.order;
-		}
-	}
-	const cart = await createCart();
-	return cart.createOrder;
-}
+// async function getOrCreateCart() {
+// 	const cartId = cookies().get("cartId")?.value;
+// 	if (cartId) {
+// 		const cart = await getCartById(cartId);
+// 		if (cart.order) {
+// 			return cart.order;
+// 		}
+// 	}
+// 	const cart = await createCart();
+// 	return cart.createOrder;
+// }
 
-function getCartById(cartId: string) {
-	return executeGraphql(CartGetByIdDocument, { id: cartId });
-}
+// function getCartById(cartId: string) {
+// 	return executeGraphql(CartGetByIdDocument, { id: cartId });
+// }
 
-function createCart() {
-	return executeGraphql(CartCreateDocument, {});
-}
+// function createCart() {
+// 	return executeGraphql(CartCreateDocument, {});
+// }
