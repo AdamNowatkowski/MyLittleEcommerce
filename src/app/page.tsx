@@ -13,7 +13,7 @@ export default async function HomePage() {
 			<CollectionList collections={collections} />
 			</div>
 			<h2>Loved by our clients!</h2>
-			<p>BestSellers</p>
+			<p>BestSellers:</p>
 			<BestRatedProducts />
 		</div>
 	);

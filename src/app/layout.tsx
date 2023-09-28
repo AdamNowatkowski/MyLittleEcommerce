@@ -15,16 +15,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
+	modal
 }: {
 	children: React.ReactNode;
+	modal: React.ReactNode;
 }) {
 	return (
 		<html lang="pl" className="h-full bg-black text-white">
 			<body className={inter.className + " h-full"}>
 				<Nav />
-				<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
+				<main className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
 					{children}
-				</section>
+				</main>
 				<Analytics />
 				<footer className="text-center text-xs text-gray-500">
 					<p >
@@ -36,6 +38,7 @@ export default function RootLayout({
 					<p>ONE YOU CAN NOT BUY ITEMS PRESENTED HERE</p>
 					<p>Especially you can not buy Pomidor here!!!</p>
 				</footer>
+				{modal}
 			</body>
 		</html>
 	);

@@ -14,5 +14,6 @@
 	},
 
 	"eslint.workingDirectories": ["./my-little-ecommerce"],
-	"explorer.compactFolders": false
+	"explorer.compactFolders": false,
+	"svg.preview.background": "dark-transparent"
 }
