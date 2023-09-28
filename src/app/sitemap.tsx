@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { type MetadataRoute } from "next";
 
 export default function Sitemap(): MetadataRoute.Sitemap {
