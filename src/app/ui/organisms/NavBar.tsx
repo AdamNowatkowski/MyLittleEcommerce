@@ -2,15 +2,14 @@ import { ShoppingCart } from "lucide-react";
 import { type Route } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchBar } from "@/app/ui/atoms/SearchBar";
 import { getCartFromCookies } from "@/api/cart";
 
 export async function Nav() {
-
 	const cart = await getCartFromCookies();
 	const quantity = cart?.orderItems.length ?? 0;
-	
 
 	const navLinks = [
 		{ href: "/products" as Route, label: "All" },
@@ -54,16 +53,27 @@ export async function Nav() {
 							
 						</div> */}
 						<div className="group-m-2 flex items-center">
-						<div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-2 lg:space-x-6"><SearchBar /></div>
-						<Link href="/cart" >
-							<ShoppingCart
-								aria-hidden="true"
-								className="h-6 w-6 flex-shrink-0 "
-							/>
-							<span className="sr-only">items in cart, view bag</span>
-						</Link>
-						<span className="ml-2 mr-4 text-sm font-bold">{quantity}</span>
-
+							<div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-2 lg:space-x-6">
+								<SearchBar />
+							</div>
+							<Link href="/cart/sidebar">
+								<ShoppingCart
+									aria-hidden="true"
+									className="h-6 w-6 flex-shrink-0 "
+								/>
+								<span className="sr-only">items in cart, view bag</span>
+							</Link>
+							<span className="ml-2 mr-4 text-sm font-bold">
+								{quantity}
+							</span>
+							<div>
+								<SignedIn>
+									<UserButton userProfileMode="navigation" afterSignOutUrl="/" />
+								</SignedIn>
+								<SignedOut>
+									<SignInButton />
+								</SignedOut>
+							</div>
 						</div>
 					</div>
 				</nav>

@@ -110,7 +110,7 @@ export async function handlePaymentAction() {
 				product_data: {
 					name: item.product?.name || "",
 				},
-				unit_amount: (item.product?.price || 777) * 100,
+				unit_amount: (item.product?.price || 777),
 			},
 			quantity: item.quantity,
 			

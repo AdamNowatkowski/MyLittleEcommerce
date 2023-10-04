@@ -9,6 +9,7 @@ import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 import { getProductById } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
+import { ReviewForm } from "@/app/ui/molecules/ReviewForm";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList();
@@ -127,6 +128,10 @@ export default async function SingleProductPage({
 					<SuggestedProductsList />
 				</Suspense>
 			</aside>
+			<aside>
+				<ReviewForm id={product.id} />
+			</aside>
+
 		</>
 	);
 }

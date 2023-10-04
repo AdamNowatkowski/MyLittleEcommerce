@@ -4,7 +4,7 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2 } from 'lucide-react';
-import { removeItem } from "./actions";
+import { removeItem } from "@/app/cart/actions";
 
 export const RemoveButton = ({ itemId }: { itemId: string }) => {
 	const [isPending, startTransition] = useTransition();

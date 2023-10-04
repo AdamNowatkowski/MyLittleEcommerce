@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { formatMoney } from "../utils";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
-import { RemoveButton } from "@/app/cart/RemoveButton";
+import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
 
 export default async function CartPage() {
@@ -10,6 +10,8 @@ export default async function CartPage() {
 	if (!cart) {
 		redirect("/");
 	}
+	if (cart?.orderItems.length === 0) redirect("/");
+
 	return (
 		<div>
 			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
