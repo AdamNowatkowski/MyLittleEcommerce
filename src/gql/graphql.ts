@@ -10803,12 +10803,19 @@ export type OrdersGetByEmailQueryVariables = Exact<{
 
 export type OrdersGetByEmailQuery = { orders: Array<{ id: string, total: number, createdAt: unknown, stage: Stage, orderItems: Array<{ id: string, quantity: number, total: number, product?: { name: string, price: number, images: Array<{ url: string }> } | null }> }> };
 
+export type ReviewsGetByProductIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewsGetByProductIdQuery = { products: Array<{ reviews: Array<{ headline: string, stage: Stage, name: string, content: string, rating: number, createdAt: unknown }> }> };
+
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> }> };
+export type ProductGetByIdQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> };
 
 export type ProductGetVariantsListQueryVariables = Exact<{
   id: Scalars['ID']['input'];
@@ -10817,33 +10824,33 @@ export type ProductGetVariantsListQueryVariables = Exact<{
 
 export type ProductGetVariantsListQuery = { product?: { variants: Array<{ id: string, name: string } | { id: string, name: string } | { id: string, name: string }> } | null };
 
-export type ProductListItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> };
+export type ProductListItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type ProductsGetByCategorySlugQuery = { categories: Array<{ products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> }> }> };
+export type ProductsGetByCategorySlugQuery = { categories: Array<{ products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> }> };
 
 export type ProductsGetByCollectionSlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type ProductsGetByCollectionSlugQuery = { collections: Array<{ products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> }> }> };
+export type ProductsGetByCollectionSlugQuery = { collections: Array<{ products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> }> };
 
 export type ProductsGetBySearchQueryVariables = Exact<{
   search: Scalars['String']['input'];
 }>;
 
 
-export type ProductsGetBySearchQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> }> };
+export type ProductsGetBySearchQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> };
 
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProductsGetListQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ rating: number }> }> };
+export type ProductsGetListQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> };
 
 export type ReviewCreateMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -10856,6 +10863,13 @@ export type ReviewCreateMutationVariables = Exact<{
 
 
 export type ReviewCreateMutation = { createReview?: { id: string } | null };
+
+export type ReviewPublishMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewPublishMutation = { publishReview?: { name: string } | null };
 
 export type SingleProductSizeColorVariantFragment = { id: string, name: string };
 
@@ -10915,7 +10929,11 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   }
   price
   reviews {
+    headline
+    name
+    content
     rating
+    createdAt
   }
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
@@ -11033,6 +11051,20 @@ export const OrdersGetByEmailDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrdersGetByEmailQuery, OrdersGetByEmailQueryVariables>;
+export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
+    query ReviewsGetByProductId($id: ID!) {
+  products(where: {id: $id}) {
+    reviews {
+      headline
+      stage
+      name
+      content
+      rating
+      createdAt
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewsGetByProductIdQuery, ReviewsGetByProductIdQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   products(where: {id: $id}) {
@@ -11047,7 +11079,11 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
     }
     price
     reviews {
+      headline
+      name
+      content
       rating
+      createdAt
     }
   }
 }
@@ -11100,7 +11136,11 @@ export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
   }
   price
   reviews {
+    headline
+    name
+    content
     rating
+    createdAt
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCategorySlugQuery, ProductsGetByCategorySlugQueryVariables>;
 export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
@@ -11123,7 +11163,11 @@ export const ProductsGetByCollectionSlugDocument = new TypedDocumentString(`
   }
   price
   reviews {
+    headline
+    name
+    content
     rating
+    createdAt
   }
 }`) as unknown as TypedDocumentString<ProductsGetByCollectionSlugQuery, ProductsGetByCollectionSlugQueryVariables>;
 export const ProductsGetBySearchDocument = new TypedDocumentString(`
@@ -11144,7 +11188,11 @@ export const ProductsGetBySearchDocument = new TypedDocumentString(`
   }
   price
   reviews {
+    headline
+    name
+    content
     rating
+    createdAt
   }
 }`) as unknown as TypedDocumentString<ProductsGetBySearchQuery, ProductsGetBySearchQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
@@ -11165,7 +11213,11 @@ export const ProductsGetListDocument = new TypedDocumentString(`
   }
   price
   reviews {
+    headline
+    name
+    content
     rating
+    createdAt
   }
 }`) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
 export const ReviewCreateDocument = new TypedDocumentString(`
@@ -11177,3 +11229,10 @@ export const ReviewCreateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
+export const ReviewPublishDocument = new TypedDocumentString(`
+    mutation ReviewPublish($id: ID!) {
+  publishReview(where: {id: $id}, to: PUBLISHED) {
+    name
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewPublishMutation, ReviewPublishMutationVariables>;

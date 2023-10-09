@@ -33,7 +33,8 @@ export const getProductById = async (
 				id: id,
 			},
 			next: {
-				revalidate: 5
+				revalidate: 5,
+				tags: ["product"]
 			}
 		});
 		return qraphqlResponse.products;

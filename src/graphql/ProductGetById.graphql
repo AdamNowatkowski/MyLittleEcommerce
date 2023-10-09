@@ -11,7 +11,11 @@ query ProductGetById($id: ID!) {
 		}
 		price
 		reviews {
-			rating
+			headline,
+			name,
+			content,
+			rating,
+			createdAt
 		}
 	}
 }

@@ -1,6 +1,8 @@
-import { executeGraphql } from "@/api/graphqlApi";
+"use server";
 
-import { ReviewCreateDocument } from "@/gql/graphql";
+import { revalidateTag } from "next/cache";
+import { executeGraphql } from "@/api/graphqlApi";
+import { ReviewCreateDocument, ReviewPublishDocument } from "@/gql/graphql";
 
 export async function createReview(
 	productId: string,
@@ -11,8 +13,8 @@ export async function createReview(
 	content: string,
 ) {
 	const ratingInt = parseInt(rating.toString());
-	console.log(typeof ratingInt);
-	return executeGraphql({
+
+	const revId = await executeGraphql({
 		query: ReviewCreateDocument,
 		variables: {
 			email: email,
@@ -24,4 +26,20 @@ export async function createReview(
 		},
 		cache: "no-store",
 	});
+
+
+	return revId
+}
+
+export async function publishReview(id: string) {
+	const x = await executeGraphql({
+		query: ReviewPublishDocument,
+		variables: {
+			id: id
+		},
+		cache: "no-store",
+	});
+	console.log(x)
+	revalidateTag("product");
+	
 }

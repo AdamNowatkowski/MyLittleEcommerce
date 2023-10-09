@@ -5,11 +5,11 @@ import { revalidateTag } from "next/cache";
 import { AddToCartButton } from "@/app/ui/atoms/AddToCartButton";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
+import { ProductReviewsBar } from "@/app/ui/organisms/ProductReviewsBar";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 import { getProductById } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
-import { ReviewForm } from "@/app/ui/molecules/ReviewForm";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList();
@@ -28,22 +28,22 @@ export const generateMetadata = async ({
 		throw notFound();
 	}
 	const product = products[0];
-	if (product.images[0]?.url === undefined) {
+	if (product.description === undefined) {
 		throw notFound();
 	}
-	const [name, image] = [product.name, product.images[0]?.url];
+	const [name, description] = [product.name, product.description];
 
 	if (!product) {
 		throw notFound();
 	}
 	return {
 		title: `${name} - My Little Ecommerce`,
-		description: `${name}`,
-		openGraph: {
-			title: `${name} - My Little Ecommerce`,
-			description: "Product page description",
-			images: [image],
-		},
+		description: `${description}`,
+		// openGraph: {
+		// 	title: `${name} - My Little Ecommerce`,
+		// 	description: "Product page description",
+		// 	images: [image],
+		// },
 	};
 };
 
@@ -128,10 +128,7 @@ export default async function SingleProductPage({
 					<SuggestedProductsList />
 				</Suspense>
 			</aside>
-			<aside>
-				<ReviewForm id={product.id} />
-			</aside>
-
+			<ProductReviewsBar product={product} />
 		</>
 	);
 }

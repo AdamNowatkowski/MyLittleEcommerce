@@ -11,7 +11,6 @@ export default async function CartPage() {
 		redirect("/");
 	}
 	if (cart?.orderItems.length === 0) redirect("/");
-
 	return (
 		<div>
 			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
