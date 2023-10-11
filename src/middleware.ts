@@ -5,6 +5,7 @@ export default authMiddleware({
 		"/",
 		"/search",
 		"/cart",
+		"/api/webhook",
 		"/cart/sidebar",
 		RegExp("/categories/(.*)"),
 		RegExp("/categories"),
