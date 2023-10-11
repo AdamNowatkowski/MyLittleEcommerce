@@ -1,12 +1,13 @@
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { Stripe } from "stripe";
+import { revalidateTag } from "next/cache";
 import { getProductById } from "./products";
 import {
 	CartGetByIdDocument,
 	CartCreateDocument,
 	type CartFragment,
-	CartAddProductDocument,
+	CartUpsertProductDocument,
 } from "@/gql/graphql";
 
 import { executeGraphql } from "@/api/graphqlApi";
@@ -33,7 +34,7 @@ export async function getCartById(cartId: string) {
 	return executeGraphql({
 		query: CartGetByIdDocument,
 		variables: { id: cartId },
-		cache: "no-store"
+		cache: "no-store",
 	});
 }
 
@@ -60,28 +61,42 @@ export function createCart() {
 	});
 }
 
-export async function addToCart(orderId: string, productId: string) {
+export async function addToCart(cart: CartFragment, productId: string) {
 	const products = await getProductById(productId);
 	if (products[0] === undefined) {
 		throw notFound();
 	}
-	const product = products[0];
+	const productSite = products[0];
 
-	if (!product) {
+	if (!productSite) {
 		throw new Error("Product not Found");
 	}
+	
+	const orderItem = cart.orderItems.find((item) =>
+	item.product?.id === productId ? item : undefined,
+	)
 
-	return executeGraphql({
-		query: CartAddProductDocument,
+	const orderId = cart.id
+	const total = orderItem ? productSite.price * (orderItem.quantity + 1) : productSite.price
+	const quantity = orderItem? orderItem.quantity + 1 : 1
+	const orderItemId = orderItem? orderItem.id : "xxxxxxxxxxxxxxxxxxxxx"
+
+
+
+	await executeGraphql({
+		query: CartUpsertProductDocument,
 		variables: {
-			orderId,
 			productId,
-			total: product.price,
+			orderId,
+			total,
+			quantity,
+            orderItemId,
 		},
 		cache: "no-store",
-	});
-}
+	})
 
+	revalidateTag("cart");
+}
 
 export async function handlePaymentAction() {
 	"use server";
@@ -110,17 +125,18 @@ export async function handlePaymentAction() {
 				product_data: {
 					name: item.product?.name || "",
 				},
-				unit_amount: (item.product?.price || 777),
+				unit_amount: item.product?.price || 777,
 			},
 			quantity: item.quantity,
-			
 		})),
 		mode: "payment",
-		success_url: "https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/success?sessionId={CHECKOUT_SESSION_ID}",
-		cancel_url: "https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/cancel",
+		success_url:
+			"https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/success?sessionId={CHECKOUT_SESSION_ID}",
+		cancel_url:
+			"https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/cancel",
 	});
 
-	if(!checkoutSession.url) {
+	if (!checkoutSession.url) {
 		throw new Error("Missing checkout session url");
 	}
 	cookies().set("cartId", "");

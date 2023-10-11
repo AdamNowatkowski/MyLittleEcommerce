@@ -10751,14 +10751,16 @@ export type _SystemDateTimeFieldVariation =
   | 'combined'
   | 'localization';
 
-export type CartAddProductMutationVariables = Exact<{
+export type CartUpsertProductMutationVariables = Exact<{
   productId: Scalars['ID']['input'];
   orderId: Scalars['ID']['input'];
   total: Scalars['Int']['input'];
+  quantity: Scalars['Int']['input'];
+  orderItemId: Scalars['ID']['input'];
 }>;
 
 
-export type CartAddProductMutation = { createOrderItem?: { id: string } | null };
+export type CartUpsertProductMutation = { upsertOrderItem?: { id: string } | null };
 
 export type CartCreateMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -10803,13 +10805,6 @@ export type OrdersGetByEmailQueryVariables = Exact<{
 
 export type OrdersGetByEmailQuery = { orders: Array<{ id: string, total: number, createdAt: unknown, stage: Stage, orderItems: Array<{ id: string, quantity: number, total: number, product?: { name: string, price: number, images: Array<{ url: string }> } | null }> }> };
 
-export type ReviewsGetByProductIdQueryVariables = Exact<{
-  id: Scalars['ID']['input'];
-}>;
-
-
-export type ReviewsGetByProductIdQuery = { products: Array<{ reviews: Array<{ headline: string, stage: Stage, name: string, content: string, rating: number, createdAt: unknown }> }> };
-
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -10825,6 +10820,14 @@ export type ProductGetVariantsListQueryVariables = Exact<{
 export type ProductGetVariantsListQuery = { product?: { variants: Array<{ id: string, name: string } | { id: string, name: string } | { id: string, name: string }> } | null };
 
 export type ProductListItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> };
+
+export type ProductUpdateAverageRatingMutationVariables = Exact<{
+  avgRating: Scalars['Float']['input'];
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ProductUpdateAverageRatingMutation = { updateProduct?: { id: string, avgRating?: number | null } | null };
 
 export type ProductsGetByCategorySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -10870,6 +10873,13 @@ export type ReviewPublishMutationVariables = Exact<{
 
 
 export type ReviewPublishMutation = { publishReview?: { name: string } | null };
+
+export type ReviewsGetByProductIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewsGetByProductIdQuery = { products: Array<{ reviews: Array<{ headline: string, stage: Stage, name: string, content: string, rating: number, createdAt: unknown }> }> };
 
 export type SingleProductSizeColorVariantFragment = { id: string, name: string };
 
@@ -10955,15 +10965,16 @@ export const SingleProductSizeVariantFragmentDoc = new TypedDocumentString(`
   name
 }
     `, {"fragmentName":"SingleProductSizeVariant"}) as unknown as TypedDocumentString<SingleProductSizeVariantFragment, unknown>;
-export const CartAddProductDocument = new TypedDocumentString(`
-    mutation CartAddProduct($productId: ID!, $orderId: ID!, $total: Int!) {
-  createOrderItem(
-    data: {product: {connect: {id: $productId}}, order: {connect: {id: $orderId}}, quantity: 1, total: $total}
+export const CartUpsertProductDocument = new TypedDocumentString(`
+    mutation CartUpsertProduct($productId: ID!, $orderId: ID!, $total: Int!, $quantity: Int!, $orderItemId: ID!) {
+  upsertOrderItem(
+    where: {id: $orderItemId}
+    upsert: {create: {product: {connect: {id: $productId}}, order: {connect: {id: $orderId}}, quantity: 1, total: $total}, update: {quantity: $quantity, total: $total}}
   ) {
     id
   }
 }
-    `) as unknown as TypedDocumentString<CartAddProductMutation, CartAddProductMutationVariables>;
+    `) as unknown as TypedDocumentString<CartUpsertProductMutation, CartUpsertProductMutationVariables>;
 export const CartCreateDocument = new TypedDocumentString(`
     mutation CartCreate {
   createOrder(data: {total: 0}) {
@@ -11051,20 +11062,6 @@ export const OrdersGetByEmailDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<OrdersGetByEmailQuery, OrdersGetByEmailQueryVariables>;
-export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
-    query ReviewsGetByProductId($id: ID!) {
-  products(where: {id: $id}) {
-    reviews {
-      headline
-      stage
-      name
-      content
-      rating
-      createdAt
-    }
-  }
-}
-    `) as unknown as TypedDocumentString<ReviewsGetByProductIdQuery, ReviewsGetByProductIdQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   products(where: {id: $id}) {
@@ -11116,6 +11113,14 @@ fragment SingleProductSizeVariant on ProductSizeVariant {
   id
   name
 }`) as unknown as TypedDocumentString<ProductGetVariantsListQuery, ProductGetVariantsListQueryVariables>;
+export const ProductUpdateAverageRatingDocument = new TypedDocumentString(`
+    mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {
+  updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {
+    id
+    avgRating
+  }
+}
+    `) as unknown as TypedDocumentString<ProductUpdateAverageRatingMutation, ProductUpdateAverageRatingMutationVariables>;
 export const ProductsGetByCategorySlugDocument = new TypedDocumentString(`
     query ProductsGetByCategorySlug($slug: String!) {
   categories(where: {slug: $slug}) {
@@ -11236,3 +11241,17 @@ export const ReviewPublishDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReviewPublishMutation, ReviewPublishMutationVariables>;
+export const ReviewsGetByProductIdDocument = new TypedDocumentString(`
+    query ReviewsGetByProductId($id: ID!) {
+  products(where: {id: $id}) {
+    reviews {
+      headline
+      stage
+      name
+      content
+      rating
+      createdAt
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewsGetByProductIdQuery, ReviewsGetByProductIdQueryVariables>;

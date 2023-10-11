@@ -16,9 +16,9 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 	const [optimisticReviews, setOptimisticReviews] = useOptimistic(
 		product?.reviews,
 	);
-	console.log("111111111111111111111")
+	// console.log("111111111111111111111")
 
-	console.log(product?.reviews)
+	// console.log(product?.reviews)
 	
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
 	function handleSubmit(e: any) {
@@ -47,7 +47,7 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 			},
 			product,
 		)
-		console.log(optimisticReviews)
+		// console.log(optimisticReviews)
 	}
 
 

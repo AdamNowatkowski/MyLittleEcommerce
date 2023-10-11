@@ -32,14 +32,14 @@ export async function createReview(
 }
 
 export async function publishReview(id: string) {
-	const x = await executeGraphql({
+	await executeGraphql({
 		query: ReviewPublishDocument,
 		variables: {
 			id: id
 		},
 		cache: "no-store",
 	});
-	console.log(x)
+
 	revalidateTag("product");
 	
 }

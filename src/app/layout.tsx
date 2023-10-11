@@ -4,7 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Nav } from "./ui/organisms/NavBar";
+import { dark } from "@clerk/themes";
+import { Nav } from "@/app/ui/organisms/NavBar";
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
@@ -22,7 +23,11 @@ export default function RootLayout({
 	modal: React.ReactNode;
 }) {
 	return (
-		<ClerkProvider>
+		<ClerkProvider
+			appearance={{
+				baseTheme: dark,
+			}}
+		>
 			<html lang="pl" className="h-full bg-black text-white">
 				<body className={inter.className + " h-full"}>
 					<Nav />

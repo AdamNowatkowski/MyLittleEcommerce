@@ -68,7 +68,7 @@ export async function Nav() {
 							</span>
 							<div>
 								<SignedIn>
-									<UserButton userProfileMode="navigation" afterSignOutUrl="/" />
+									<UserButton userProfileMode="navigation" afterSignOutUrl="/" userProfileUrl="/user" />
 								</SignedIn>
 								<SignedOut>
 									<SignInButton />

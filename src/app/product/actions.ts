@@ -24,7 +24,7 @@ export async function createReviewAction(
 		newReview.content,
 	);
 
-	console.log(reviewId.createReview?.id);
+	// console.log(reviewId.createReview?.id);
 
 	if (!reviewId) throw new Error("Failed to create review");
 
