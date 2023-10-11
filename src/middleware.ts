@@ -7,6 +7,8 @@ export default authMiddleware({
 		"/search",
 		"/cart",
 		"/cart/sidebar",
+		RegExp("/regulamin"),
+		RegExp("/polityka-prywatnosci"),
 		RegExp("/categories/(.*)"),
 		RegExp("/categories"),
 		RegExp("/collections/(.*)"),
