@@ -42,7 +42,7 @@ export type BodyReviewInsertType = {
 }
 
 export async function POST(request: NextRequest): Promise<Response> {
-	
+	console.log("1")
 	const payLoad = await (request.json()) as BodyReviewInsertType
 	const productId = payLoad.data.product.id
 	const data = await executeGraphql({
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 			id: productId
 		},
 	});
-
+	console.log("2")
 	if (data.products[0] === undefined) {
 		throw notFound();
 	}
@@ -63,7 +63,8 @@ export async function POST(request: NextRequest): Promise<Response> {
 	const avgRating = product.reviews.reduce((acc, review) => {
         return acc + review.rating;
     }, 0) / product.reviews.length;
-	
+	console.log("3")
+
 	const updateMessage = await executeGraphql({
 		query: ProductUpdateAverageRatingDocument,
 		variables: {
@@ -72,6 +73,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 		},
 	});
 
+	console.log(updateMessage)
 	//     return new Response(JSON.stringify('Hello, world!'),{
 	//     headers: {
 	//         'content-type': "application/json"
@@ -79,6 +81,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 	//     status:200
 
 	// })
+	console.log("4")
 
-	return new Response(JSON.stringify(updateMessage, null, 2) , {status: 200});
+	return new Response("noice" , {status: 200});
 }
