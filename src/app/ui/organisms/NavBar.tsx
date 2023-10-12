@@ -39,6 +39,7 @@ export async function Nav() {
 								{navLinks.map((link) => (
 									<li key={link.href} className=" pl-4 last:pr-4 lg:px-0">
 										<ActiveLink
+										 	aria-current="page"
 											href={link.href}
 											className="flex h-full w-full min-w-[3rem] items-center justify-center hover:text-gray-200"
 											activeClassName="font-bold border-b-2 border-b-white"
@@ -54,11 +55,10 @@ export async function Nav() {
 						</div> */}
 						<div className="group-m-2 flex items-center">
 							<div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-2 lg:space-x-6">
-								<SearchBar />
+								<SearchBar  />
 							</div>
-							<Link href="/cart/sidebar">
+							<Link href="/cart/sidebar" aria-hidden="true">
 								<ShoppingCart
-									aria-hidden="true"
 									className="h-6 w-6 flex-shrink-0 "
 								/>
 								<span className="sr-only">items in cart, view bag</span>

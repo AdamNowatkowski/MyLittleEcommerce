@@ -12,6 +12,7 @@ export const removeItem = async (itemId: string) => {
 		variables: {
 			itemId: itemId,
 		},
+		cache: "no-store",
 	});
 	revalidateTag("cart");
 };
@@ -23,5 +24,6 @@ export const changeItemQuantity = (itemId: string, quantity: number) => {
 			itemId: itemId,
 			quantity: quantity,
 		},
+		cache: "no-store",
 	});
 };

@@ -94,7 +94,6 @@ export async function addToCart(cart: CartFragment, productId: string) {
 		},
 		cache: "no-store",
 	})
-
 	revalidateTag("cart");
 }
 
