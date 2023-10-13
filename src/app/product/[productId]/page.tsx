@@ -125,7 +125,7 @@ export default async function SingleProductPage({
 			<aside>
 				<h2 className="mt-3">Suggested Products</h2>
 				<Suspense fallback="Ładowanie ...">
-					<SuggestedProductsList />
+					<SuggestedProductsList category={product.categories[0]?.name as string} />
 				</Suspense>
 			</aside>
 			<ProductReviewsBar product={product} />
