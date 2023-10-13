@@ -19,7 +19,7 @@ export default async function SearchPage({
 		<div>
 			<h1>Search results for {searchParams.query}:</h1>
 			{products[0] ? (
-				<ProductList products={products} />
+				<ProductList products={products}  pagination="1"/>
 			) : (
 				<h1>No results</h1>
 			)}
