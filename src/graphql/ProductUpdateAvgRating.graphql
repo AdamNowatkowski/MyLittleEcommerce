@@ -1,6 +1,9 @@
 mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {
-	updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {
+	updateProduct(data: { avgRating: $avgRating }, where: { id: $id }) {
 		id
 		avgRating
-    }
+	}
+	publishProduct(to: PUBLISHED, where: { id: $id }) {
+		id
+	}
 }

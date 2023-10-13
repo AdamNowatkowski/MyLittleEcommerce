@@ -23,10 +23,10 @@ const documents = {
     "fragment CollectionSingle on Collection {\n  id\n  name\n  slug\n  description\n  image {\n    url\n  }\n}": types.CollectionSingleFragmentDoc,
     "query ColectionsGetList {\n  collections(first: 3) {\n    ...CollectionSingle\n  }\n}": types.ColectionsGetListDocument,
     "query OrdersGetByEmail($email: String!) {\n  orders(where: {email: $email}) {\n    id\n    total\n    createdAt\n    stage\n    orderItems {\n      id\n      quantity\n      total\n      product {\n        name\n        price\n        images {\n          url\n        }\n      }\n    }\n  }\n}": types.OrdersGetByEmailDocument,
-    "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    id\n    name\n    description\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n    price\n    reviews {\n      headline\n      name\n      content\n      rating\n      createdAt\n    }\n  }\n}": types.ProductGetByIdDocument,
+    "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    id\n    name\n    description\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n    price\n    reviews {\n      headline\n      name\n      content\n      rating\n      createdAt\n    }\n    avgRating\n  }\n}": types.ProductGetByIdDocument,
     "query ProductGetVariantsList($id: ID!) {\n  product(where: {id: $id}) {\n    variants {\n      ... on ProductColorVariant {\n        ...SingleProductColorVariant\n      }\n      ... on ProductSizeColorVariant {\n        ...SingleProductSizeColorVariant\n      }\n      ... on ProductSizeVariant {\n        ...SingleProductSizeVariant\n      }\n    }\n  }\n}": types.ProductGetVariantsListDocument,
-    "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n  reviews {\n    headline\n    name\n    content\n    rating\n    createdAt\n  }\n}": types.ProductListItemFragmentDoc,
-    "mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {\n  updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {\n    id\n    avgRating\n  }\n}": types.ProductUpdateAverageRatingDocument,
+    "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n  reviews {\n    headline\n    name\n    content\n    rating\n    createdAt\n  }\n  avgRating\n}": types.ProductListItemFragmentDoc,
+    "mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {\n  updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {\n    id\n    avgRating\n  }\n  publishProduct(to: PUBLISHED, where: {id: $id}) {\n    id\n  }\n}": types.ProductUpdateAverageRatingDocument,
     "query ProductsGetByCategorySlug($slug: String!) {\n  categories(where: {slug: $slug}) {\n    products(first: 20) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetByCategorySlugDocument,
     "query ProductsGetByCollectionSlug($slug: String!) {\n  collections(where: {slug: $slug}) {\n    products(first: 20) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetByCollectionSlugDocument,
     "query ProductsGetBySearch($search: String!) {\n  products(where: {_search: $search}, first: 20) {\n    ...ProductListItem\n  }\n}": types.ProductsGetBySearchDocument,
@@ -76,7 +76,7 @@ export function graphql(source: "query OrdersGetByEmail($email: String!) {\n  or
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    id\n    name\n    description\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n    price\n    reviews {\n      headline\n      name\n      content\n      rating\n      createdAt\n    }\n  }\n}"): typeof import('./graphql').ProductGetByIdDocument;
+export function graphql(source: "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    id\n    name\n    description\n    categories(first: 1) {\n      name\n    }\n    images(first: 1) {\n      url\n    }\n    price\n    reviews {\n      headline\n      name\n      content\n      rating\n      createdAt\n    }\n    avgRating\n  }\n}"): typeof import('./graphql').ProductGetByIdDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -84,11 +84,11 @@ export function graphql(source: "query ProductGetVariantsList($id: ID!) {\n  pro
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n  reviews {\n    headline\n    name\n    content\n    rating\n    createdAt\n  }\n}"): typeof import('./graphql').ProductListItemFragmentDoc;
+export function graphql(source: "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n  reviews {\n    headline\n    name\n    content\n    rating\n    createdAt\n  }\n  avgRating\n}"): typeof import('./graphql').ProductListItemFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {\n  updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {\n    id\n    avgRating\n  }\n}"): typeof import('./graphql').ProductUpdateAverageRatingDocument;
+export function graphql(source: "mutation ProductUpdateAverageRating($avgRating: Float!, $id: ID!) {\n  updateProduct(data: {avgRating: $avgRating}, where: {id: $id}) {\n    id\n    avgRating\n  }\n  publishProduct(to: PUBLISHED, where: {id: $id}) {\n    id\n  }\n}"): typeof import('./graphql').ProductUpdateAverageRatingDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

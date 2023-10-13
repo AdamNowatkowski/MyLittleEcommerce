@@ -25,7 +25,7 @@ export async function BestRatedProducts() {
 
 	return (
 		<div data-testid="related-products">
-			<ProductList products={sortedProductsByReview.slice(0, 4)} />
+			<ProductList products={sortedProductsByReview.slice(0, 4)} pagination={"1"} />
 		</div>
 	);
 }

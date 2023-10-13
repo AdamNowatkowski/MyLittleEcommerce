@@ -17,7 +17,9 @@ export const ActiveLink = ({
 	activeClassName: string;
 }) => {
 	const pathname = usePathname() as Route;
-	let isActive = pathname === href;
+	const pathnameLenght = pathname.split("/").length - 2;
+	const hrefLength = href.split("/").length - 1;
+	let isActive = href.split("/")[hrefLength] === pathname.split("/")[pathnameLenght] || href.split("/")[hrefLength] === pathname.split("/")[hrefLength]
 	const productPage: Route = "/products";
 	const hrefForLandingProductPage = "/products/1" as Route;
 	if (pathname === productPage && href === hrefForLandingProductPage) {

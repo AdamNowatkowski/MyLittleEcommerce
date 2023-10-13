@@ -10,10 +10,11 @@ fragment ProductListItem on Product {
 	}
 	price
 	reviews {
-			headline,
-			name,
-			content,
-			rating,
-			createdAt
+		headline
+		name
+		content
+		rating
+		createdAt
 	}
+	avgRating
 }

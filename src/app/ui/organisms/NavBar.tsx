@@ -14,9 +14,9 @@ export async function Nav() {
 	const navLinks = [
 		{ href: "/products" as Route, label: "All" },
 		{ href: "/" as Route, label: "Home" },
-		{ href: "/categories/t-shirts/1" as Route, label: "T-Shirts" },
+		{ href: "/categories/t-shirts" as Route, label: "T-Shirts" },
 		// { href: "/categories/hoodies/1" as Route, label: "Hoodies" },
-		{ href: "/categories/accessories/1" as Route, label: "Accessories" },
+		{ href: "/categories/accessories" as Route, label: "Accessories" },
 	];
 	return (
 		<div className="sticky top-0 z-20 border-b-2 bg-gray-950 bg-opacity-60 backdrop-blur-lg">

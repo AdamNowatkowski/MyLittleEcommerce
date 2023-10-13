@@ -17,5 +17,6 @@ query ProductGetById($id: ID!) {
 			rating,
 			createdAt
 		}
+		avgRating
 	}
 }

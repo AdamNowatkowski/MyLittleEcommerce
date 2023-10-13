@@ -39,7 +39,7 @@ export default async function ProductsPage({
 			<h1 className="mb-5 capitalize">
 				{params.collection.replace("-", " ")}
 			</h1>
-			<ProductList products={products.slice(0, 4)} />
+			<ProductList products={products.slice(0, 4)} pagination="1" />
 			<PaginationList
 				aria-label="Pagination"
 				paginationLenght={Math.ceil(products.length / 4)}

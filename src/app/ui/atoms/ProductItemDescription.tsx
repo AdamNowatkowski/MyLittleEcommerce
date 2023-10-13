@@ -6,7 +6,7 @@ type ProductItemDescriptionProps = {
 };
 
 export const ProductItemDescription = ({
-	product: { name, categories, price, reviews },
+	product: { name, categories, price, avgRating },
 }: ProductItemDescriptionProps) => {
 	return (
 		<div className="mt-2 flex justify-between">
@@ -22,14 +22,10 @@ export const ProductItemDescription = ({
 			<div>
 				<p className="px-3 text-sm font-medium">
 					<span className="sr-only ">Cena:</span>
-					{formatMoney(price / 100)}
+					<span data-testid="product-price">{formatMoney(price / 100)}</span>
 				</p>
 				<p className="px-3 text-sm font-medium">
-					{reviews[0] &&
-						(
-							reviews.reduce((sum, review) => sum + review.rating, 0) /
-							reviews.length
-						).toFixed(1) + "/5"}
+					<span data-testid="product-rating">{avgRating && avgRating.toFixed(1)}</span><span>/5.0</span>
 				</p>
 			</div>
 		</div>

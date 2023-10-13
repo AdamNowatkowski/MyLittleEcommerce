@@ -57,11 +57,6 @@ export default async function CategoryProductPage({
 		parseInt(params.pagination) <= 0 ||
 		isNaN(parseInt(params.pagination));
 
-	const paginatedProducts = products.slice(
-		parseInt(params.pagination) * 4 - 4,
-		parseInt(params.pagination) * 4,
-	);
-
 	if (paginationValidation) {
 		throw notFound();
 	}
@@ -69,7 +64,7 @@ export default async function CategoryProductPage({
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
 			<h1 className="mb-5 capitalize">{capitalizeFirstLetter(params.category)}</h1>
-			<ProductList products={paginatedProducts} />
+			<ProductList products={products} pagination={params.pagination} />
 			<PaginationList
 				aria-label="pagination1"
 				paginationLenght={Math.ceil(products.length / 4)}

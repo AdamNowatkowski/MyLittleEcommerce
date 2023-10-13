@@ -18,6 +18,11 @@ const nextConfig = {
 				permanent: false,
 			},
 			{
+				source: "/products",
+				destination: "/products/1",
+				permanent: false,
+			},
+			{
 				source: "/categories/hoodies",
 				destination: "/categories/hoodies/1",
 				permanent: false,
