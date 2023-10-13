@@ -13,7 +13,7 @@ import { getOrCreateCart, addToCart } from "@/api/cart";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
-	return products.slice(0, 8).map((product?: { id: string }) => ({
+	return products.slice(0, 12).map((product?: { id: string }) => ({
 		productId: product?.id,
 	}));
 };
