@@ -11,6 +11,7 @@ export const SuggestedProductsList = async ({category} :  { category: string }) 
 
     const productslist = products.slice(-4)
     return (
+        <div data-testid="products-list">
 		<ul
 			className="grid grid-cols-1 gap-8 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
 			data-testid="related-products"
@@ -19,5 +20,6 @@ export const SuggestedProductsList = async ({category} :  { category: string }) 
 				return <ProductListItem key={product.id} product={product} />;
 			})}
 		</ul>
+        </div>
 	);
 };
