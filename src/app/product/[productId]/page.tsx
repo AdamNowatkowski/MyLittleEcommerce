@@ -8,15 +8,15 @@ import { VariantsList } from "@/app/ui/molecules/VariantsList";
 import { ProductReviewsBar } from "@/app/ui/organisms/ProductReviewsBar";
 import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
-import { getProductById } from "@/api/products";
+import { getProductById, getProductsList } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
 
-// export const generateStaticParams = async () => {
-// 	const products = await getProductsList();
-// 	return products.slice(0, 3).map((product?: { id: string }) => ({
-// 		productId: product?.id,
-// 	}));
-// };
+export const generateStaticParams = async () => {
+	const products = await getProductsList();
+	return products.slice(0, 8).map((product?: { id: string }) => ({
+		productId: product?.id,
+	}));
+};
 
 export const generateMetadata = async ({
 	params,
