@@ -66,7 +66,7 @@ export default async function SingleProductPage({
 		// console.log(FormData)
 		const cart = await getOrCreateCart();
 
-		await addToCart(cart, params.productId);
+		await addToCart(cart, product);
 
 		revalidateTag("cart");
 	}

@@ -8,6 +8,7 @@ import {
 	CartCreateDocument,
 	type CartFragment,
 	CartUpsertProductDocument,
+	ProductListItemFragment,
 } from "@/gql/graphql";
 
 import { executeGraphql } from "@/api/graphqlApi";
@@ -61,23 +62,24 @@ export function createCart() {
 	});
 }
 
-export async function addToCart(cart: CartFragment, productId: string) {
-	const products = await getProductById(productId);
-	if (products[0] === undefined) {
-		throw notFound();
-	}
-	const productSite = products[0];
+export async function addToCart(cart: CartFragment, product: ProductListItemFragment) {
+	// const products = await getProductById(productId);
+	// if (products[0] === undefined) {
+	// 	throw notFound();
+	// }
+	// const productSite = products[0];
 
-	if (!productSite) {
-		throw new Error("Product not Found");
-	}
+	// if (!productSite) {
+	// 	throw new Error("Product not Found");
+	// }
 	
 	const orderItem = cart.orderItems.find((item) =>
-	item.product?.id === productId ? item : undefined,
+	item.product?.id === product.id ? item : undefined,
 	)
 
 	const orderId = cart.id
-	const total = orderItem ? productSite.price * (orderItem.quantity + 1) : productSite.price
+	const productId = product.id
+	const total = orderItem ? product.price * (orderItem.quantity + 1) : product.price
 	const quantity = orderItem? orderItem.quantity + 1 : 1
 	const orderItemId = orderItem? orderItem.id : "xxxxxxxxxxxxxxxxxxxxx"
 
