@@ -1,23 +1,19 @@
 import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
-	publicRoutes: [
-		"/",
-		"/api/webhook",
-		"/search",
-		"/cart",
-		"/cart/sidebar",
-		RegExp("/regulamin"),
-		RegExp("/polityka-prywatnosci"),
-		RegExp("/categories/(.*)"),
-		RegExp("/categories"),
-		RegExp("/collections/(.*)"),
-		RegExp("/collections"),
-		RegExp("/product/(.*)"),
-		RegExp("/product"),
-		RegExp("/products/(.*)"),
-		RegExp("/products"),
-	],
+    publicRoutes: [
+        "/",
+        "/:filename",
+        "/search",
+        "/cart",
+        "/cart/sidebar",
+        "/categories/:categorySlug/:pageNumber",
+        "/collections/:collectionSlug",
+        "/collections/:collectionSlug/:pageNumber",
+        "/product/:productSlug",
+        "/products",
+        "/products/:pageNumber",
+    ],
 });
 
 export const config = {
