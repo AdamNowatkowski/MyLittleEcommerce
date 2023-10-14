@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Stripe } from "stripe";
+import { revalidateTag } from "next/cache";
 import {
 	CartGetByIdDocument,
 	CartCreateDocument,
@@ -86,6 +87,7 @@ export async function addToCart(
 	const quantity = orderItem ? orderItem.quantity + 1 : 1;
 	const orderItemId = orderItem ? orderItem.id : "xxxxxxxxxxxxxxxxxxxxx";
 
+	revalidateTag("cart");
 	await executeGraphql({
 		query: CartUpsertProductDocument,
 		variables: {
@@ -97,7 +99,8 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	// revalidateTag("cart");
+	revalidateTag("cart");
+
 }
 
 export async function handlePaymentAction() {
