@@ -18,9 +18,9 @@ export const SearchBar = () => {
 	const [value] = useDebounce(query, 500);
 
 	const handleSearchOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-		if (event.target.value === "") {
-			router.back();
-		}
+		// if (event.target.value === "") {
+		// 	router.back();
+		// }
 		setQuery(event.target.value);
 	};
 
@@ -45,6 +45,8 @@ export const SearchBar = () => {
 				className="bg-inherit p-3"
 				type="search"
 				role="searchbox"
+								autoComplete="off"
+
 				onChange={handleSearchOnChange}
 				value={query}
 				placeholder="Search Products..."
