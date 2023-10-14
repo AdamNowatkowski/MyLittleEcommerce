@@ -1,22 +1,39 @@
-// import { revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { formatMoney } from "@/app/utils";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
+// import { revalidateTag } from "next/cache";
 
 export default async function CartPage() {
 	// revalidateTag("cart");
+	const timeout = setTimeout(() => {
+		console.log("Pomidor");
+	  }, 1000);
+	timeout;
 	const cart = await getCartFromCookies();
 
 	if (!cart) {
+		const timeout = setTimeout(() => {
+			console.log("Pomidor");
+		  }, 1000);
+		timeout;
+		const cart = await getCartFromCookies()
+		revalidateTag("cart");
 		return (
 			<div>
 				Cart Empty or Processing, items in cart{" "}
-				<span data-testid="quantity">{0}</span>{" "}
+				<span data-testid="quantity">{cart?.orderItems.length}</span>{" "}
 			</div>
 		);
 	}
 	if (cart?.orderItems.length === 0) {
+		const timeout = setTimeout(() => {
+			console.log("Pomidor");
+		  }, 1000);
+		timeout;
+		const cart = await getCartFromCookies()
+		revalidateTag("cart");
 		return (
 			<div>
 				Cart Empty or Processing, items in cart{" "}

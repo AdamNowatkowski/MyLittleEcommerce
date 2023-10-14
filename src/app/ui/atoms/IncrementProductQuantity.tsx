@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { experimental_useOptimistic as useOptimistic, useReducer } from "react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { changeItemQuantity, removeItem } from "@/app/cart/actions";
@@ -13,7 +13,8 @@ export const IncrementProductQuantity = ({
 	quantity: number;
 }) => {
 	const router = useRouter();
-
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
+	const [_, forceUpdate] = useReducer(x => x + 1, 0);
 	const [optimisticQuantity, setOptimisticQuantity] =
 		useOptimistic(quantity);
 	return (
@@ -34,7 +35,7 @@ export const IncrementProductQuantity = ({
 			>
 				-
 			</button>
-			<span data-testid="quantity">{optimisticQuantity}</span>
+			<span onChange={forceUpdate} data-testid="quantity">{optimisticQuantity}</span>
 			<button
 				data-testid="increment"
 				className="ml-2 border-white bg-inherit font-bold"
