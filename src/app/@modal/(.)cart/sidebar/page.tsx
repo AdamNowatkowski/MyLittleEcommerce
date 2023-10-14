@@ -28,7 +28,7 @@ export default async function ModalCart() {
 										className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
 									>
 										<td className="px-6 py-4">{item.product.name}</td>
-										<td className="text-center">{item.quantity}</td>
+										<td className="text-center" data-testid="quantity">{item.quantity}</td>
 										<td className="text-center">{item.quantity * item.product?.price}</td>
 										{/* <td className="text-center">
 											<IncrementProductQuantity

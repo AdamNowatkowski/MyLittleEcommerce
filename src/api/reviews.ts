@@ -13,7 +13,7 @@ export async function createReview(
 	content: string,
 ) {
 	const ratingInt = parseInt(rating.toString());
-
+	
 	const revId = await executeGraphql({
 		query: ReviewCreateDocument,
 		variables: {

@@ -21,7 +21,7 @@ export const StarRating = () => {
                 key={value}
                 type="button"
                 name='ratingStars'
-                value={rating}
+                value={ rating.toString()}
                 className={`ml-2 text-2xl ${rating >= value ? 'text-yellow-400' : 'text-gray-400'} mr-1`}
                 onClick={() => handleStarClick(value)}
               >
@@ -29,12 +29,18 @@ export const StarRating = () => {
               </button>
                 
               ))}
-              <input
-                type="hidden"
+
+          </div>
+          <input
                 name="rating"
                 value={rating}
+                type="range"
+                // hidden
+                min="1"
+                max="5"
+                step="1"
+                onChange={(e) => setRating(Number(e.target.value))}
               ></input>
-          </div>
         </div>
     </div>
   );
