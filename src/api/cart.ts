@@ -99,7 +99,7 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart");
+	// revalidateTag("cart");
 
 }
 
