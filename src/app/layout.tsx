@@ -54,7 +54,7 @@ export default function RootLayout({
 						<p>ONE YOU CAN NOT BUY ITEMS PRESENTED HERE</p>
 						<p>Especially you can not buy Pomidor here!!!</p>
 					</footer>
-					{modal}
+					{/* {modal} */}
 				</body>
 			</html>
 		</ClerkProvider>

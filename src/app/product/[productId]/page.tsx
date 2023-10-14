@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
-// import { revalidateTag } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { AddToCartButton } from "@/app/ui/atoms/AddToCartButton";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
@@ -68,7 +68,7 @@ export default async function SingleProductPage({
 
 		await addToCart(cart, product);
 
-		// revalidateTag("cart");
+		revalidateTag("cart");
 	}
 
 	return (
