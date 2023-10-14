@@ -35,7 +35,6 @@ export const IncrementProductQuantity = ({
 				-
 			</button>
 			<span data-testid="quantity">{optimisticQuantity}</span>
-			<span data-testid="quantity2">##{quantity}##</span>
 			<button
 				data-testid="increment"
 				className="ml-2 border-white bg-inherit font-bold"
