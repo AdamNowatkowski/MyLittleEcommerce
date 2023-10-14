@@ -1,4 +1,4 @@
-import { revalidateTag } from "next/cache";
+// import { revalidateTag } from "next/cache";
 import { formatMoney } from "@/app/utils";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
