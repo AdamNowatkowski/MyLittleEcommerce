@@ -101,6 +101,8 @@ export async function addToCart(
 	});
 	revalidateTag("cart");
 
+
+
 }
 
 export async function handlePaymentAction() {

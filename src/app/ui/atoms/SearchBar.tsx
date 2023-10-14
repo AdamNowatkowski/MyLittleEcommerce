@@ -31,7 +31,7 @@ export const SearchBar = () => {
 
 	useEffect(() => {
 		if (value) {
-			router.push(`/search?query=${encodeURIComponent(query)}` as Route);
+			router.push(`/search?query=${query}` as Route);
 		}
 	}, [value]);
 
