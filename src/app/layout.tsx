@@ -17,10 +17,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
 	children,
-	// modal,
+	modal,
 }: {
 	children: React.ReactNode;
-	// modal: React.ReactNode;
+	modal: React.ReactNode;
 }) {
 	return (
 		<ClerkProvider
@@ -54,7 +54,7 @@ export default function RootLayout({
 						<p>ONE YOU CAN NOT BUY ITEMS PRESENTED HERE</p>
 						<p>Especially you can not buy Pomidor here!!!</p>
 					</footer>
-					{/* {modal} */}
+					{modal}
 				</body>
 			</html>
 		</ClerkProvider>
