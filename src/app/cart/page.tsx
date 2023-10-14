@@ -1,10 +1,11 @@
-import { formatMoney } from "../utils";
-import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
-import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
-
+import { revalidateTag } from "next/cache";
+import { formatMoney } from "@/app/utils";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
+import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
+import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 
 export default async function CartPage() {
+	// revalidateTag("cart");
 	const cart = await getCartFromCookies();
 
 	if (!cart) {
@@ -25,7 +26,8 @@ export default async function CartPage() {
 	}
 	return (
 		<div>
-=			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+			={" "}
+			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
 				<table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
 					<thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
 						<tr>
