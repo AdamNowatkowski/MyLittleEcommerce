@@ -14,7 +14,6 @@ export const IncrementProductQuantity = ({
 }) => {
 	const router = useRouter();
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-assignment
-	const [_, forceUpdate] = useReducer(x => x + 1, 0);
 	const [optimisticQuantity, setOptimisticQuantity] =
 		useOptimistic(quantity);
 	return (
@@ -35,7 +34,8 @@ export const IncrementProductQuantity = ({
 			>
 				-
 			</button>
-			<span onChange={forceUpdate} data-testid="quantity">{optimisticQuantity}</span>
+			<span data-testid="quantity">{optimisticQuantity}</span>
+			<span data-testid="quantity2">{quantity}</span>
 			<button
 				data-testid="increment"
 				className="ml-2 border-white bg-inherit font-bold"

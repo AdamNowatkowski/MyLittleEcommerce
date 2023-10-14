@@ -5,9 +5,7 @@ import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 
 export default async function CartPage() {
-	
 	const cart = await getCartFromCookies();
-	revalidateTag("cart");
 
 	if (!cart) {
 		return (
