@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { formatMoney } from "../utils";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
@@ -8,9 +7,20 @@ export default async function CartPage() {
 	const cart = await getCartFromCookies();
 
 	if (!cart) {
-		redirect("/");
+		return (
+			<div>
+				Cart Empty or Processing, items in cart <span data-testid="quantity">{0}</span>{" "}
+			</div>
+		)
 	}
-	if (cart?.orderItems.length === 0) redirect("/");
+	if (cart?.orderItems.length === 0) {
+		return (
+			<div>
+				Cart Empty or Processing, items in cart{" "}
+				<span data-testid="quantity">{cart?.orderItems.length}</span>{" "}
+			</div>
+		)
+	}
 	return (
 		<div>
 			<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
