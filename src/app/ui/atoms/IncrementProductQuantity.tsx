@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic, useReducer } from "react";
+import { experimental_useOptimistic as useOptimistic } from "react";
 import { useRouter } from "next/navigation";
 import { revalidateTag } from "next/cache";
 import { changeItemQuantity, removeItem } from "@/app/cart/actions";
