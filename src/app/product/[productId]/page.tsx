@@ -68,7 +68,7 @@ export default async function SingleProductPage({
 
 		await addToCart(cart, product);
 
-		revalidateTag("cart");
+		// revalidateTag("cart");
 	}
 
 	return (
