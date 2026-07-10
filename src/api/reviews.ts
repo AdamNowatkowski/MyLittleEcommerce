@@ -40,6 +40,6 @@ export async function publishReview(id: string) {
 		cache: "no-store",
 	});
 
-	revalidateTag("product");
+	revalidateTag("product", "default");
 	
 }

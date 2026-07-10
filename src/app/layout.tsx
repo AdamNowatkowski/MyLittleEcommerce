@@ -3,9 +3,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Nav } from "@/app/ui/organisms/NavBar";
+import { MetaPixel } from "@/app/ui/MetaPixel";
 
 const inter = Inter({ subsets: ["latin", "latin-ext"] });
 
@@ -35,6 +37,10 @@ export default function RootLayout({
 						{children}
 					</main>
 					<Analytics />
+					{process.env.NEXT_PUBLIC_GA_ID && (
+						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+					)}
+					<MetaPixel />
 					<footer className="text-center text-xs text-gray-500">
 						<p>
 							© {new Date().getFullYear()} Adam Nowatkowski. All rights

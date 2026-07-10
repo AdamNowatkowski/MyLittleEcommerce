@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { Stripe } from "stripe";
+import Stripe from "stripe";
 
 export default async function CartCancelPage({
 	searchParams,
@@ -15,7 +15,7 @@ export default async function CartCancelPage({
 	}
 
 	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-		apiVersion: "2023-08-16",
+		apiVersion: "2026-06-24.dahlia",
 		typescript: true,
 	});
 

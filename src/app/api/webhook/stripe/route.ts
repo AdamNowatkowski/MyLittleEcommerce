@@ -1,4 +1,4 @@
-/// <reference types="stripe-event-types" />
+
 
 // import { revalidatePath } from "next/cache";
 import { type NextRequest } from "next/server";
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 		throw new Error("Missing Stripe secret key");
 	}
 	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-		apiVersion: "2023-08-16",
+		apiVersion: "2026-06-24.dahlia",
 		typescript: true,
 	});
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 		await request.text(),
 		signature,
 		process.env.STRIPE_WEBHOOK_SECRET,
-	) as Stripe.DiscriminatedEvent;
+	) as Stripe.Event;
 
 	switch (event.type) {
 		case "checkout.session.completed": {

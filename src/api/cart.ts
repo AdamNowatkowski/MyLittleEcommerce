@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Stripe } from "stripe";
+import Stripe from "stripe";
 import { revalidateTag } from "next/cache";
 import {
 	CartGetByIdDocument,
@@ -22,7 +22,7 @@ export async function getOrCreateCart(): Promise<CartFragment> {
 	if (!cart.createOrder) {
 		throw new Error("createOrder not found");
 	}
-	cookies().set("cartId", cart.createOrder.id, {
+	(await cookies()).set("cartId", cart.createOrder.id, {
 		httpOnly: true,
 		sameSite: "lax",
 		// secure: true,
@@ -39,7 +39,7 @@ export async function getCartById(cartId: string) {
 }
 
 export async function getCartFromCookies() {
-	const cartId = cookies().get("cartId")?.value;
+	const cartId = (await cookies()).get("cartId")?.value;
 	if (cartId) {
 		const cart = await executeGraphql({
 			query: CartGetByIdDocument,
@@ -99,7 +99,7 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart");
+	revalidateTag("cart", "default");
 
 
 
@@ -117,7 +117,7 @@ export async function handlePaymentAction() {
 		return;
 	}
 	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-		apiVersion: "2023-08-16",
+		apiVersion: "2026-06-24.dahlia",
 		typescript: true,
 	});
 
@@ -146,6 +146,6 @@ export async function handlePaymentAction() {
 	if (!checkoutSession.url) {
 		throw new Error("Missing checkout session url");
 	}
-	cookies().set("cartId", "");
-	redirect(checkoutSession.url);
+	(await cookies()).set("cartId", "");
+	redirect(checkoutSession.url as any);
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 import { SingleReview } from "@/app/ui/atoms/SingleReview";
 import { ReviewForm } from "@/app/ui/molecules/ReviewForm";
 import { type ProductListItemFragment } from "@/gql/graphql";
@@ -75,7 +75,7 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 				</div>
 				<div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
 					<ul>
-						{optimisticReviews.map((review) => {
+						{optimisticReviews.map((review: any) => {
 							return (
 								<li key={product.id}>
 									<SingleReview

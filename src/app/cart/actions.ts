@@ -14,11 +14,11 @@ export const removeItem = async (itemId: string) => {
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart");
+	revalidateTag("cart", "default");
 };
 
-export const changeItemQuantity = (itemId: string, quantity: number) => {
-	return executeGraphql({
+export const changeItemQuantity = async (itemId: string, quantity: number) => {
+	await executeGraphql({
 		query: CartSetProductQuantityDocument,
 		variables: {
 			itemId: itemId,
@@ -26,4 +26,5 @@ export const changeItemQuantity = (itemId: string, quantity: number) => {
 		},
 		cache: "no-store",
 	});
+	revalidateTag("cart", "default");
 };

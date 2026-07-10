@@ -1,8 +1,7 @@
 "use client";
 
-import { experimental_useOptimistic as useOptimistic } from "react";
+import { useOptimistic } from "react";
 import { useRouter } from "next/navigation";
-import { revalidateTag } from "next/cache";
 import { changeItemQuantity, removeItem } from "@/app/cart/actions";
 
 export const IncrementProductQuantity = ({
@@ -24,7 +23,6 @@ export const IncrementProductQuantity = ({
 				formAction={async () => {
 					if (optimisticQuantity === 1) {
 						await removeItem(itemId);
-						revalidateTag("cart");
 						router.refresh();
 					} else {
 						setOptimisticQuantity(optimisticQuantity - 1);
