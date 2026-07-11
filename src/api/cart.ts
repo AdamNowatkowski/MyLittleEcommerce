@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Stripe from "stripe";
 import { revalidateTag } from "next/cache";
@@ -109,9 +109,11 @@ export async function handlePaymentAction() {
 		return;
 	}
 	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-		apiVersion: "2026-06-24.dahlia",
 		typescript: true,
 	});
+
+	const headersList = await headers();
+	const origin = headersList.get("origin") || "http://localhost:3000";
 
 	const checkoutSession = await stripe.checkout.sessions.create({
 		payment_method_types: ["card"],
@@ -129,10 +131,8 @@ export async function handlePaymentAction() {
 			quantity: item.quantity,
 		})),
 		mode: "payment",
-		success_url:
-			"https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/success?sessionId={CHECKOUT_SESSION_ID}",
-		cancel_url:
-			"https://my-little-ecommerce-adamnowatkowski.vercel.app/cart/cancel",
+		success_url: `${origin}/cart/success?sessionId={CHECKOUT_SESSION_ID}`,
+		cancel_url: `${origin}/cart/cancel`,
 	});
 
 	if (!checkoutSession.url) {
