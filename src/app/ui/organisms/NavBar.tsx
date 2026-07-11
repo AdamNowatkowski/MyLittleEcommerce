@@ -2,7 +2,7 @@ import { ShoppingCart } from "lucide-react";
 import { type Route } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchBar } from "@/app/ui/atoms/SearchBar";
 import { getCartFromCookies } from "@/api/cart";
@@ -66,12 +66,7 @@ export async function Nav() {
 								{quantity}
 							</span>
 							<div>
-								<SignedIn>
-									<UserButton userProfileMode="navigation" afterSignOutUrl="/" userProfileUrl="/user" />
-								</SignedIn>
-								<SignedOut>
-									<SignInButton />
-								</SignedOut>
+								{/* Clerk disabled temporarily */}
 							</div>
 						</div>
 					</div>

@@ -14,25 +14,26 @@ import { PaginationList } from "@/app/ui/molecules/PaginationList";
 export default async function ProductsPage({
 	params,
 }: {
-	params: { pagination: string };
+	params: Promise<{ pagination: string }>;
 }) {
+	const { pagination } = await params;
 	const products = await getProductsList();
 
 	const paginationValidation =
-		parseInt(params.pagination) - 1 > Math.ceil(products.length) / 4 ||
-		parseInt(params.pagination) <= 0 ||
-		isNaN(parseInt(params.pagination));
+		parseInt(pagination) - 1 > Math.ceil(products.length) / 4 ||
+		parseInt(pagination) <= 0 ||
+		isNaN(parseInt(pagination));
 	if (paginationValidation) {
 		throw notFound();
 	}
 
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
-			<ProductList products={products} pagination={params.pagination} />
+			<ProductList products={products} pagination={pagination} />
 			<PaginationList
 				aria-label="pagination1"
 				paginationLenght={Math.ceil(products.length / 4)}
-				currentPagination={parseInt(params.pagination)}
+				currentPagination={parseInt(pagination)}
 			/>
 		</section>
 	);

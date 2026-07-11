@@ -32,9 +32,9 @@ const capitalizeFirstLetter = (phrase: string) => {
 export const generateMetadata = async ({
 	params,
 }: {
-	params: { collection: string; pagination: string };
+	params: Promise<{ collection: string; pagination: string }>;
 }): Promise<Metadata> => {
-	const collection = params.collection;
+	const { collection } = await params;
 
 	return {
 		title: `${capitalizeFirstLetter(collection.replace("-", " "))}`,
@@ -45,16 +45,17 @@ export const generateMetadata = async ({
 export default async function CollectionProductPage({
 	params,
 }: {
-	params: { collection: string; pagination: string };
+	params: Promise<{ collection: string; pagination: string }>;
 }) {
-	const products = await getProductsByCollectionSlug(params.collection);
+	const { collection, pagination } = await params;
+	const products = await getProductsByCollectionSlug(collection);
 	if (!products) {
 		throw notFound();
 	}
 	const paginationValidation =
-		parseInt(params.pagination) - 1 > Math.ceil(products.length) / 4 ||
-		parseInt(params.pagination) <= 0 ||
-		isNaN(parseInt(params.pagination));
+		parseInt(pagination) - 1 > Math.ceil(products.length) / 4 ||
+		parseInt(pagination) <= 0 ||
+		isNaN(parseInt(pagination));
 
 	if (paginationValidation) {
 		throw notFound();
@@ -62,12 +63,12 @@ export default async function CollectionProductPage({
 
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
-			<h1 className="mb-5 capitalize">{params.collection.replace("-", " ")}</h1>
-			<ProductList products={products} pagination={params.pagination} />
+			<h1 className="mb-5 capitalize">{collection.replace("-", " ")}</h1>
+			<ProductList products={products} pagination={pagination} />
 			<PaginationList
 				aria-label="pagination1"
 				paginationLenght={Math.ceil(products.length / 4)}
-				currentPagination={parseInt(params.pagination)}
+				currentPagination={parseInt(pagination)}
 			/>
 		</section>
 	);

@@ -32,10 +32,10 @@ const capitalizeFirstLetter = (phrase: string) => {
 export const generateMetadata = async ({
 	params,
 }: {
-	params: { category: string; pagination: string };
+	params: Promise<{ category: string; pagination: string }>;
 }): Promise<Metadata> => {
 
-	const category = params.category
+	const { category } = await params;
 	
 	return {
 		title: `${capitalizeFirstLetter(category)}`
@@ -46,16 +46,17 @@ export const generateMetadata = async ({
 export default async function CategoryProductPage({
 	params,
 }: {
-	params: { category: string; pagination: string };
+	params: Promise<{ category: string; pagination: string }>;
 }) {
-	const products = await getProductsByCategorySlug(params.category);
+	const { category, pagination } = await params;
+	const products = await getProductsByCategorySlug(category);
 	if (!products) {
 		throw notFound();
 	}
 	const paginationValidation =
-		parseInt(params.pagination) > Math.ceil(products.length) / 4 ||
-		parseInt(params.pagination) <= 0 ||
-		isNaN(parseInt(params.pagination));
+		parseInt(pagination) > Math.ceil(products.length) / 4 ||
+		parseInt(pagination) <= 0 ||
+		isNaN(parseInt(pagination));
 
 	if (paginationValidation) {
 		throw notFound();
@@ -63,12 +64,12 @@ export default async function CategoryProductPage({
 
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
-			<h1 className="mb-5 capitalize">{capitalizeFirstLetter(params.category)}</h1>
-			<ProductList products={products} pagination={params.pagination} />
+			<h1 className="mb-5 capitalize">{capitalizeFirstLetter(category)}</h1>
+			<ProductList products={products} pagination={pagination} />
 			<PaginationList
 				aria-label="pagination1"
 				paginationLenght={Math.ceil(products.length / 4)}
-				currentPagination={parseInt(params.pagination)}
+				currentPagination={parseInt(pagination)}
 			/>
 		</section>
 	);

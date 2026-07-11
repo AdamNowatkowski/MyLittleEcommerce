@@ -15,10 +15,10 @@ const capitalizeFirstLetter = (phrase: string) => {
 export const generateMetadata = async ({
 	params,
 }: {
-	params: { category: string; pagination: string };
+	params: Promise<{ category: string; pagination: string }>;
 }): Promise<Metadata> => {
 
-	const category = params.category
+	const { category } = await params;
 	
 	return {
 		title: `${capitalizeFirstLetter(category)}`
@@ -30,13 +30,13 @@ export const generateMetadata = async ({
 export default async function ProductsPage({
 	params,
 }: {
-	params: { category: string; pagination: string };
+	params: Promise<{ category: string; pagination: string }>;
 }) {
-	const products = await getProductsByCategorySlug(params.category);
+	const { category } = await params;
+	const products = await getProductsByCategorySlug(category);
 	if (!products) {
 		throw notFound();
 	}
-	const category = params.category
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
 			<h1 className="text-3xl text-white capitalize mb-5">{category}</h1>

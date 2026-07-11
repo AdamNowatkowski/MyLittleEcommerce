@@ -4,8 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
+
 import { Nav } from "@/app/ui/organisms/NavBar";
 import { MetaPixel } from "@/app/ui/MetaPixel";
 
@@ -25,12 +24,7 @@ export default function RootLayout({
 	modal: React.ReactNode;
 }) {
 	return (
-		<ClerkProvider
-			appearance={{
-				baseTheme: dark,
-			}}
-		>
-			<html lang="pl" className="h-full bg-black text-white">
+		<html lang="pl" className="h-full bg-black text-white">
 				<body className={inter.className + " h-full"}>
 					<Nav />
 					<main className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
@@ -63,6 +57,5 @@ export default function RootLayout({
 					{modal}
 				</body>
 			</html>
-		</ClerkProvider>
 	);
 }

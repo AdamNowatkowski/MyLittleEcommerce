@@ -15,9 +15,9 @@ const capitalizeFirstLetter = (phrase: string) => {
 export const generateMetadata = async ({
 	params,
 }: {
-	params: { collection: string; pagination: string };
+	params: Promise<{ collection: string; pagination: string }>;
 }): Promise<Metadata> => {
-	const collection = params.collection;
+	const { collection } = await params;
 
 	return {
 		title: `${capitalizeFirstLetter(collection.replace("-", " "))}`,
@@ -28,16 +28,17 @@ export const generateMetadata = async ({
 export default async function ProductsPage({
 	params,
 }: {
-	params: { collection: string; pagination: string };
+	params: Promise<{ collection: string; pagination: string }>;
 }) {
-	const products = await getProductsByCollectionSlug(params.collection);
+	const { collection } = await params;
+	const products = await getProductsByCollectionSlug(collection);
 	if (!products) {
 		throw notFound();
 	}
 	return (
 		<section className="sm:max-2-2xl mx-auto max-w-md p-12 sm:py-16 md:max-w-4xl lg:max-w-7xl ">
 			<h1 className="mb-5 capitalize">
-				{params.collection.replace("-", " ")}
+				{collection.replace("-", " ")}
 			</h1>
 			<ProductList products={products.slice(0, 4)} pagination="1" />
 			<PaginationList

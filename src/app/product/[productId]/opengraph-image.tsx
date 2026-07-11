@@ -16,9 +16,10 @@ export const contentType = "image/png";
 export default async function og({
 	params,
 }: {
-	params: { productId: string };
+	params: Promise<{ productId: string }>;
 }) {
-	const products = await getProductById(params.productId);
+	const { productId } = await params;
+	const products = await getProductById(productId);
 	if (products[0] === undefined) {
 		throw notFound();
 	}

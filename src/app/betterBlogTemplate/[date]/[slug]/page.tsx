@@ -1,8 +1,9 @@
 export default async function BlogPage({
-	params: { date, slug },
+	params,
 }: {
-	params: { date: string; slug: string };
+	params: Promise<{ date: string; slug: string }>;
 }) {
+	const { date, slug } = await params;
     //     const pathname = params.pathname.join('/') ?? []; //optional chaining
     return (
         <div>

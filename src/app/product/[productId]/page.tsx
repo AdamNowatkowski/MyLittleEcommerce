@@ -21,9 +21,10 @@ export const generateStaticParams = async () => {
 export const generateMetadata = async ({
 	params,
 }: {
-	params: { productId: string };
+	params: Promise<{ productId: string }>;
 }): Promise<Metadata> => {
-	const products = await getProductById(params.productId);
+	const { productId } = await params;
+	const products = await getProductById(productId);
 	if (products[0] === undefined) {
 		throw notFound();
 	}
@@ -50,9 +51,10 @@ export const generateMetadata = async ({
 export default async function SingleProductPage({
 	params,
 }: {
-	params: { productId: string };
+	params: Promise<{ productId: string }>;
 }) {
-	const products = await getProductById(params.productId);
+	const { productId } = await params;
+	const products = await getProductById(productId);
 	if (products[0] === undefined) {
 		throw notFound();
 	}
@@ -87,7 +89,7 @@ export default async function SingleProductPage({
 						</div>
 						<div className="mt-4 space-y-6">
 							<p className="">{product.description}</p>
-							<VariantsList id={params.productId} />
+							<VariantsList id={productId} />
 						</div>
 
 						<div className="mt-6 flex items-center">
