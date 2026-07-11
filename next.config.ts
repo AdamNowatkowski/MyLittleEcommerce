@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
-	output: "standalone",
 	pageExtensions: ["ts", "tsx", "mdx"],
 	typedRoutes: true,
 	images: {
