@@ -10908,10 +10908,13 @@ export const CartFragmentDoc = new TypedDocumentString(`
     id
     quantity
     product {
-      id
-      name
-      price
-    }
+        id
+        name
+        price
+        images(first: 1) {
+          url
+        }
+      }
   }
 }
     `, {"fragmentName":"Cart"}) as unknown as TypedDocumentString<CartFragment, unknown>;
@@ -10988,10 +10991,13 @@ export const CartCreateDocument = new TypedDocumentString(`
     id
     quantity
     product {
-      id
-      name
-      price
-    }
+        id
+        name
+        price
+        images(first: 1) {
+          url
+        }
+      }
   }
 }`) as unknown as TypedDocumentString<CartCreateMutation, CartCreateMutationVariables>;
 export const CartGetByIdDocument = new TypedDocumentString(`
@@ -11006,10 +11012,13 @@ export const CartGetByIdDocument = new TypedDocumentString(`
     id
     quantity
     product {
-      id
-      name
-      price
-    }
+        id
+        name
+        price
+        images(first: 1) {
+          url
+        }
+      }
   }
 }`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
 export const CartRemoveProductDocument = new TypedDocumentString(`

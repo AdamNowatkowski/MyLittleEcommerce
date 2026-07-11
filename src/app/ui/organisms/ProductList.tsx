@@ -7,17 +7,17 @@ import { ProductListItem } from "@/app/ui/molecules/ProductListItem";
 export const ProductList = ({
 	products, pagination
 }: {
-	products: ProductListItemFragment[], pagination: string;
+	products: ProductListItemFragment[], pagination?: string;
 }) => {
 	const [sorting, setSorting] = useState('default');
 
 	if (!pagination) {
 		return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <ul className="grid grid-cols-1 gap-8 sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-testid="products-list">
                 {products.map((product) => (
                     <ProductListItem key={product.id} product={product} />
                 ))}
-            </div>
+            </ul>
         );
 	}
 	let paginatedProducts = products.slice(
@@ -64,10 +64,13 @@ export const ProductList = ({
 
 	return (
 		<div>
-			Sorting
+			<label htmlFor="sorting-select" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+				Sorting
+			</label>
 			<select 
-			className="block w-1/5 p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg 
-			bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
+			 id="sorting-select"
+			 className="block w-1/5 p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg 
+			 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600
 			 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 			 value={sorting}
 			 onChange={e => setSorting(e.target.value)}
