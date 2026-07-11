@@ -15,7 +15,7 @@ export const AddToCartButton = () => {
 			transition duration-150 ease-in-out enabled:bg-gradient-to-r 
 			hover:enabled:brightness-125 disabled:cursor-wait disabled:bg-gray-300"
 		>
-			Add to cart
+			{formStatus.pending ? "Adding to cart..." : "Add to cart"}
 		</button>
 	);
 };

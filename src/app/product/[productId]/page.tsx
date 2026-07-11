@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { type Metadata } from "next/types";
-// import { revalidateTag } from "next/cache";
 import { AddToCartButton } from "@/app/ui/atoms/AddToCartButton";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 import { VariantsList } from "@/app/ui/molecules/VariantsList";
@@ -40,11 +39,11 @@ export const generateMetadata = async ({
 	return {
 		title: `${name} - My Little Ecommerce`,
 		description: `${description}`,
-		// openGraph: {
-		// 	title: `${name} - My Little Ecommerce`,
-		// 	description: "Product page description",
-		// 	images: [image],
-		// },
+		openGraph: {
+			title: `${name} - My Little Ecommerce`,
+			description: description,
+			images: product.images[0]?.url ? [product.images[0].url] : [],
+		},
 	};
 };
 
@@ -65,12 +64,8 @@ export default async function SingleProductPage({
 
 	async function addToCartAction(_formData: FormData) {
 		"use server";
-		// console.log(FormData)
 		const cart = await getOrCreateCart();
-
 		await addToCart(cart, product);
-
-		// revalidateTag("cart");
 	}
 
 	return (

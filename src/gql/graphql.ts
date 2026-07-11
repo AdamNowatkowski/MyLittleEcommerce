@@ -10850,7 +10850,7 @@ export type ProductsGetBySearchQueryVariables = Exact<{
 
 export type ProductsGetBySearchQuery = { products: Array<{ id: string, name: string, description: string, price: number, avgRating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> };
 
-export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+export type ProductsGetListQueryVariables = Exact<{ first?: InputMaybe<Scalars['Int']['input']>; skip?: InputMaybe<Scalars['Int']['input']>; }>;
 
 
 export type ProductsGetListQuery = { products: Array<{ id: string, name: string, description: string, price: number, avgRating?: number | null, categories: Array<{ name: string }>, images: Array<{ url: string }>, reviews: Array<{ headline: string, name: string, content: string, rating: number, createdAt: unknown }> }> };
@@ -11209,8 +11209,8 @@ export const ProductsGetBySearchDocument = new TypedDocumentString(`
   avgRating
 }`) as unknown as TypedDocumentString<ProductsGetBySearchQuery, ProductsGetBySearchQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
-    query ProductsGetList {
-  products(first: 20) {
+    query ProductsGetList($first: Int = 20, $skip: Int = 0) {
+  products(first: $first, skip: $skip) {
     ...ProductListItem
   }
 }

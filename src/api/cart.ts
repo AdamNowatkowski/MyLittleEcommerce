@@ -65,15 +65,7 @@ export async function addToCart(
 	cart: CartFragment,
 	product: ProductListItemFragment,
 ) {
-	// const products = await getProductById(productId);
-	// if (products[0] === undefined) {
-	// 	throw notFound();
-	// }
-	// const productSite = products[0];
-
-	// if (!productSite) {
-	// 	throw new Error("Product not Found");
-	// }
+	// Add product to cart logic
 
 	const orderItem = cart.orderItems.find((item) =>
 		item.product?.id === product.id ? item : undefined,

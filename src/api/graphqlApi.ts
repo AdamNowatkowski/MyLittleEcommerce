@@ -34,10 +34,12 @@ export const executeGraphql = async <TResult, TVariables>({
 	const qraphqlResponse = (await res.json()) as GrahQLResponse<TResult>;
 	
 	if (qraphqlResponse.errors) {
-		console.log(JSON.stringify(qraphqlResponse, null, 2));
-		throw TypeError(`GraphQL error:`, {
-			cause: qraphqlResponse.errors[0]?.message,
-		});
+		console.error("GraphQL request failed:", JSON.stringify({
+			query,
+			variables,
+			errors: qraphqlResponse.errors
+		}, null, 2));
+		throw new Error(`GraphQL error: ${qraphqlResponse.errors[0]?.message || "Unknown error"}`);
 	}
 
 	return qraphqlResponse.data;

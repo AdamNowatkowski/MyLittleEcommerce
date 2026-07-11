@@ -32,15 +32,10 @@ export const StarRating = () => {
 
           </div>
           <input
-                name="rating"
-                value={rating}
-                type="range"
-                // hidden
-                min="1"
-                max="5"
-                step="1"
-                onChange={(e) => setRating(Number(e.target.value))}
-              ></input>
+            name="rating"
+            value={rating}
+            type="hidden"
+          />
         </div>
     </div>
   );

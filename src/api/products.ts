@@ -11,10 +11,13 @@ import {
 	ProductsGetBySearchDocument,
 } from "@/gql/graphql";
 
-export const getProductsList = async () => {
+export const getProductsList = async (first?: number, skip?: number) => {
 	const qraphqlResponse = await executeGraphql({
 		query: ProductsGetListDocument,
-		variables: {},
+		variables: {
+			first: first,
+			skip: skip,
+		},
 		next: {
 			revalidate: 15
 		}
