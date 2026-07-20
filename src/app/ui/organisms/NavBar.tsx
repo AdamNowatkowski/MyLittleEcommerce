@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchBar } from "@/app/ui/atoms/SearchBar";
 import { getCartFromCookies } from "@/api/cart";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export async function Nav() {
 	const cart = await getCartFromCookies();
@@ -66,7 +67,12 @@ export async function Nav() {
 								{quantity}
 							</span>
 							<div>
-								{/* Clerk disabled temporarily */}
+								<SignedIn>
+									<UserButton />
+								</SignedIn>
+								<SignedOut>
+									<SignInButton />
+								</SignedOut>
 							</div>
 						</div>
 					</div>

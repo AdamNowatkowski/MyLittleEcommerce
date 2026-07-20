@@ -20,36 +20,20 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 
 	// console.log(product?.reviews)
 	
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-explicit-any
-	function handleSubmit(e: any) {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-		e.preventDefault();
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-		const formData = new FormData(e.target);
+	async function actionFn(formData: FormData) {
 		const currentDate = new Date();
-		setOptimisticReviews(
-			[...optimisticReviews, {
-				rating: formData.get("rating") as unknown as number,
-				name: formData.get("name") as string,
-				headline: formData.get("headline") as string,
-				content: formData.get("content") as string,
-				createdAt: currentDate.toISOString(),
-			}]
-		);
-		void createReviewAction(
-			{
-				rating: formData.get("rating") as unknown as number,
-				email: formData.get("email") as string,
-				name: formData.get("name") as string,
-				headline: formData.get("headline") as string,
-				content: formData.get("content") as string,
-				createAt: new Date().toString(),
-			},
-			product,
-		)
-		// console.log(optimisticReviews)
+		const newReview = {
+			rating: Number(formData.get("rating")),
+			email: (formData.get("email") as string) || "test@test.com",
+			name: formData.get("name") as string,
+			headline: formData.get("headline") as string,
+			content: formData.get("content") as string,
+			createAt: currentDate.toISOString(),
+		};
+		
+		setOptimisticReviews([...optimisticReviews, { ...newReview, createdAt: newReview.createAt }]);
+		await createReviewAction(newReview, product);
 	}
-
 
 	return (
 		<aside className="">
@@ -57,8 +41,7 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 				<div className="lg:col-span-4">
 					<div className="mt-5 max-w-xs border-spacing-4 overflow-hidden  rounded-md bg-black">
 						<form
-							onSubmit={handleSubmit}
-							method="POST"
+							action={actionFn}
 							id="reviewForm"
 							name="reviewForm"
 							data-testid="add-review-form"

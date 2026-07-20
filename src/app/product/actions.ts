@@ -2,7 +2,7 @@
 
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { createReview, publishReview } from "@/api/reviews";
-
+import { revalidatePath } from "next/cache";
 
 export async function createReviewAction(
 	newReview: {		
@@ -24,11 +24,11 @@ export async function createReviewAction(
 		newReview.content,
 	);
 
-	// console.log(reviewId.createReview?.id);
-
 	if (!reviewId) throw new Error("Failed to create review");
 
 	await publishReview(reviewId.createReview?.id as string);
+
+	revalidatePath(`/product/${product.id}`);
 
 	const reviews = [...product.reviews, newReview];
 
