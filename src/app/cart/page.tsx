@@ -1,7 +1,6 @@
 import { formatMoney } from "@/app/utils";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
-import { CheckoutButton } from "@/app/ui/atoms/CheckoutButton";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 

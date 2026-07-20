@@ -11,7 +11,7 @@ import { auth } from "@clerk/nextjs/server";
 
 export async function Nav() {
 	const cart = await getCartFromCookies();
-	const quantity = cart?.orderItems.length ?? 0;
+	const quantity = cart?.orderItems.reduce((acc, item) => acc + item.quantity, 0) ?? 0;
 	const { userId } = await auth();
 
 	const navLinks = [
