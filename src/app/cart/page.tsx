@@ -1,6 +1,7 @@
 import { formatMoney } from "@/app/utils";
 import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantity";
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
+import { CheckoutButton } from "@/app/ui/atoms/CheckoutButton";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
 
@@ -112,12 +113,7 @@ export default async function CartPage() {
 
 					<div className="mt-6">
 						<form action={handlePaymentAction}>
-							<button
-								type="submit"
-								className="w-full rounded-md border border-transparent bg-yellow-400 px-4 py-3 text-base font-medium text-black shadow-sm hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-colors"
-							>
-								Checkout / Pay
-							</button>
+							<CheckoutButton />
 						</form>
 					</div>
 				</section>

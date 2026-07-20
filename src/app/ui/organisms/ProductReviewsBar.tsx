@@ -5,6 +5,7 @@ import { SingleReview } from "@/app/ui/atoms/SingleReview";
 import { ReviewForm } from "@/app/ui/molecules/ReviewForm";
 import { type ProductListItemFragment } from "@/gql/graphql";
 import {createReviewAction} from "@/app/product/actions";
+import { sendGAEvent } from "@next/third-parties/google";
 // import { createReview, publishReview } from "@/api/reviews";
 
 type ProductListItemProps = {
@@ -32,6 +33,7 @@ export const ProductReviewsBar = ({ product }: ProductListItemProps) => {
 		};
 		
 		setOptimisticReviews([...optimisticReviews, { ...newReview, createdAt: newReview.createAt }]);
+		sendGAEvent({ event: "add_review", value: product.id });
 		await createReviewAction(newReview, product);
 	}
 

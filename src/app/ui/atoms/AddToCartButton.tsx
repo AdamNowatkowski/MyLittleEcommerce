@@ -1,6 +1,8 @@
 "use client";
 import { useFormStatus } from "react-dom";
 
+import { sendGAEvent } from "@next/third-parties/google";
+
 export const AddToCartButton = () => {
 	const formStatus = useFormStatus();
 
@@ -9,6 +11,7 @@ export const AddToCartButton = () => {
 			type="submit"
 			data-testid="add-to-cart-button"
 			disabled={formStatus.pending}
+			onClick={() => sendGAEvent({ event: "add_to_cart", value: "product_added" })}
 			className="inline-flex h-14 w-full items-center justify-center rounded-md 
 			from-[#1e4b65] from-20% via-[#010315] to-[#0b237d] to-80% 
 			px-6 text-base font-medium leading-6 text-white shadow 
