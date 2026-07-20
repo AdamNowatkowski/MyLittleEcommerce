@@ -33,9 +33,7 @@ export default function RootLayout({
 						{children}
 					</main>
 					<Analytics />
-					{process.env.NEXT_PUBLIC_GA_ID && (
-						<GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-					)}
+					<GoogleAnalytics gaId="G-JB6X6LKYTX" />
 					<MetaPixel />
 					<footer className="mt-12 text-center text-xs text-gray-500 pb-12">
 						<p>
