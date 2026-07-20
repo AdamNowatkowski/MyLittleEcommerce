@@ -91,7 +91,7 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart");
+	revalidateTag("cart", "max");
 
 
 
@@ -105,7 +105,7 @@ export async function handlePaymentAction() {
 		const headersList = await headers();
 		const origin = headersList.get("origin") || "http://localhost:3000";
 		(await cookies()).set("cartId", "");
-		redirect(`${origin}/cart/success?sessionId=mock_session_id_no_stripe`);
+		redirect(`${origin}/cart/success?sessionId=mock_session_id_no_stripe` as any);
 	}
 
 	const cart = await getCartFromCookies();

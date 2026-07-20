@@ -29,7 +29,7 @@ export async function createReviewAction(
 	await publishReview(reviewId.createReview?.id as string);
 
 	revalidatePath(`/product/${product.id}`);
-	revalidateTag("product");
+	revalidateTag("product", "max");
 
 	const reviews = [...product.reviews, newReview];
 

@@ -6,11 +6,13 @@ import Image from "next/image";
 import { ActiveLink } from "@/app/ui/atoms/ActiveLink";
 import { SearchBar } from "@/app/ui/atoms/SearchBar";
 import { getCartFromCookies } from "@/api/cart";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import { SignInButton, UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 
 export async function Nav() {
 	const cart = await getCartFromCookies();
 	const quantity = cart?.orderItems.length ?? 0;
+	const { userId } = await auth();
 
 	const navLinks = [
 		{ href: "/products" as Route, label: "All" },
@@ -67,16 +69,15 @@ export async function Nav() {
 								{quantity}
 							</span>
 							<div>
-								<SignedIn>
+								{userId ? (
 									<UserButton />
-								</SignedIn>
-								<SignedOut>
+								) : (
 									<SignInButton>
 										<button className="rounded-md border border-gray-400 px-3 py-1.5 text-sm font-bold text-white hover:bg-gray-800">
 											Sign In
 										</button>
 									</SignInButton>
-								</SignedOut>
+								)}
 							</div>
 						</div>
 					</div>
