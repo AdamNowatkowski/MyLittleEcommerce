@@ -4,9 +4,10 @@ import Stripe from "stripe";
 export default async function CartSuccessPage({
 	searchParams,
 }: {
-	searchParams: { sessionId: string };
+	searchParams: Promise<{ sessionId: string }>;
 }) {
-	if (!searchParams.sessionId) {
+	const params = await searchParams;
+	if (!params.sessionId) {
 		redirect("/");
 	}
 
@@ -20,7 +21,7 @@ export default async function CartSuccessPage({
 	});
 
 	const session = await stripe.checkout.sessions.retrieve(
-		searchParams.sessionId,
+		params.sessionId,
 	);
 
 	return (
