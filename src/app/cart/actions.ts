@@ -1,5 +1,5 @@
 "use server";
-import { revalidateTag } from "next/cache";
+import { revalidateTag, revalidatePath } from "next/cache";
 import { executeGraphql } from "@/api/graphqlApi";
 import {
 	CartSetProductQuantityDocument,
@@ -14,7 +14,8 @@ export const removeItem = async (itemId: string) => {
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	revalidateTag("cart");
+	revalidatePath("/cart");
 };
 
 export const changeItemQuantity = async (itemId: string, quantity: number) => {
@@ -26,5 +27,6 @@ export const changeItemQuantity = async (itemId: string, quantity: number) => {
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	revalidateTag("cart");
+	revalidatePath("/cart");
 };

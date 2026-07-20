@@ -77,7 +77,7 @@ export async function addToCart(
 		? product.price * (orderItem.quantity + 1)
 		: product.price;
 	const quantity = orderItem ? orderItem.quantity + 1 : 1;
-	const orderItemId = orderItem ? orderItem.id : "xxxxxxxxxxxxxxxxxxxxx";
+	const orderItemId = orderItem ? orderItem.id : "c000000000000000000000000";
 
 	// revalidateTag("cart");
 	await executeGraphql({
@@ -91,7 +91,7 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	revalidateTag("cart");
 
 
 

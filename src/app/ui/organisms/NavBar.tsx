@@ -71,7 +71,11 @@ export async function Nav() {
 									<UserButton />
 								</SignedIn>
 								<SignedOut>
-									<SignInButton />
+									<SignInButton>
+										<button className="rounded-md border border-gray-400 px-3 py-1.5 text-sm font-bold text-white hover:bg-gray-800">
+											Sign In
+										</button>
+									</SignInButton>
 								</SignedOut>
 							</div>
 						</div>

@@ -5,19 +5,17 @@ import { ProductList } from "@/app/ui/organisms/ProductList";
 export default async function SearchPage({
 	searchParams,
 }: {
-	searchParams: { [key: string]: string | string[] };
+	searchParams: Promise<{ [key: string]: string | string[] }>;
 }) {
-	if (!searchParams.query) {
+	const params = await searchParams;
+	if (!params.query) {
 		throw notFound();
 	}
-	const products = await getSearchProducts(searchParams.query as string);
-	// if (!products[0]) {
-	// 	throw notFound();
-	// }
+	const products = await getSearchProducts(params.query as string);
 
 	return (
 		<div>
-			<h1>Search results for {searchParams.query}:</h1>
+			<h1>Search results for {params.query}:</h1>
 			{products[0] ? (
 				<ProductList products={products}  pagination="1"/>
 			) : (

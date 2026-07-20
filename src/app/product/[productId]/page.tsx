@@ -9,6 +9,7 @@ import { SuggestedProductsList } from "@/app/ui/organisms/SuggestedProducts";
 import { formatMoney } from "@/app/utils";
 import { getProductById, getProductsList } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
+import { revalidatePath } from "next/cache";
 
 export const generateStaticParams = async () => {
 	const products = await getProductsList();
@@ -66,6 +67,7 @@ export default async function SingleProductPage({
 		"use server";
 		const cart = await getOrCreateCart();
 		await addToCart(cart, product);
+		revalidatePath(`/product/${product.id}`);
 	}
 
 	return (
