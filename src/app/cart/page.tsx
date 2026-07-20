@@ -3,6 +3,7 @@ import { IncrementProductQuantity } from "@/app/ui/atoms/IncrementProductQuantit
 import { RemoveButton } from "@/app/ui/atoms/RemoveButton";
 import { getCartFromCookies, handlePaymentAction } from "@/api/cart";
 import { ProductImage } from "@/app/ui/atoms/ProductImage";
+import { CheckoutButton } from "@/app/ui/atoms/CheckoutButton";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();
@@ -21,6 +22,13 @@ export default async function CartPage() {
 	}
 
 	const subtotal = cart.orderItems.reduce((acc, item) => acc + (item.product?.price || 0) * item.quantity, 0);
+
+	const gaItems = cart.orderItems.map((item) => ({
+		item_id: item.product?.id,
+		item_name: item.product?.name,
+		price: item.product?.price ? item.product.price / 100 : 0,
+		quantity: item.quantity,
+	}));
 
 	return (
 		<div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
@@ -112,7 +120,7 @@ export default async function CartPage() {
 
 					<div className="mt-6">
 						<form action={handlePaymentAction}>
-							<CheckoutButton />
+							<CheckoutButton value={subtotal / 100} items={gaItems} />
 						</form>
 					</div>
 				</section>

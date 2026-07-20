@@ -70,6 +70,15 @@ export default async function SingleProductPage({
 		revalidatePath(`/product/${product.id}`);
 	}
 
+	const gaItems = [
+		{
+			item_id: product.id,
+			item_name: product.name,
+			price: product.price ? product.price / 100 : 0,
+			quantity: 1,
+		},
+	];
+
 	return (
 		<>
 			<article className="">
@@ -115,7 +124,10 @@ export default async function SingleProductPage({
 									name="productId"
 									value={product.id}
 								></input>
-								<AddToCartButton />
+								<AddToCartButton
+									value={product.price ? product.price / 100 : 0}
+									items={gaItems}
+								/>
 							</form>
 						</div>
 					</div>
