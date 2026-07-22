@@ -25,7 +25,7 @@ export default function RootLayout({
 	modal: React.ReactNode;
 }) {
 	return (
-		<ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up" afterSignInUrl="/" afterSignUpUrl="/">
+		<ClerkProvider>
 			<html lang="pl" className="h-full bg-black text-white">
 				<body className={inter.className + " h-full"}>
 					<Nav />
