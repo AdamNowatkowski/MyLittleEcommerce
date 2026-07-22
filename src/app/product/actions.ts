@@ -1,8 +1,8 @@
 "use server";
-
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { createReview, publishReview } from "@/api/reviews";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 import { getProductById } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
 
@@ -17,7 +17,9 @@ export async function addToCartActionForm(formData: FormData) {
 	const cart = await getOrCreateCart();
 	await addToCart(cart, product);
 	
-	revalidatePath(`/product/${product.id}`);
+	// @ts-expect-error Next.js type bug
+	revalidateTag("cart");
+	redirect(`/product/${product.id}`);
 }
 
 export async function createReviewAction(
