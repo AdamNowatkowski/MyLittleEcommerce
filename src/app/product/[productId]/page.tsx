@@ -11,12 +11,12 @@ import { getProductById, getProductsList } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
 import { revalidatePath } from "next/cache";
 
-export const generateStaticParams = async () => {
-	const products = await getProductsList();
-	return products.slice(0, 16).map((product?: { id: string }) => ({
-		productId: product?.id,
-	}));
-};
+// export const generateStaticParams = async () => {
+// 	const products = await getProductsList();
+// 	return products.slice(0, 16).map((product?: { id: string }) => ({
+// 		productId: product?.id,
+// 	}));
+// };
 
 export const generateMetadata = async ({
 	params,

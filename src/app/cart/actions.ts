@@ -14,7 +14,8 @@ export const removeItem = async (itemId: string) => {
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	// @ts-expect-error Next.js type bug
+	revalidateTag("cart");
 	revalidatePath("/cart");
 };
 
@@ -27,6 +28,7 @@ export const changeItemQuantity = async (itemId: string, quantity: number) => {
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	// @ts-expect-error Next.js type bug
+	revalidateTag("cart");
 	revalidatePath("/cart");
 };

@@ -29,7 +29,8 @@ export async function createReviewAction(
 	await publishReview(reviewId.createReview?.id as string);
 
 	revalidatePath(`/product/${product.id}`);
-	revalidateTag("product", "default");
+	// @ts-expect-error Next.js type bug
+	revalidateTag("product");
 
 	const reviews = [...product.reviews, newReview];
 

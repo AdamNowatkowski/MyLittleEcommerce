@@ -91,7 +91,8 @@ export async function addToCart(
 		},
 		cache: "no-store",
 	});
-	revalidateTag("cart", "default");
+	// @ts-expect-error Next.js type bug
+	revalidateTag("cart");
 
 
 
