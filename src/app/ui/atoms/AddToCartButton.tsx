@@ -1,5 +1,6 @@
 "use client";
 import { useFormStatus } from "react-dom";
+import { useUser } from "@clerk/nextjs";
 
 import { sendGAEvent } from "@next/third-parties/google";
 
@@ -11,6 +12,7 @@ export const AddToCartButton = ({
 	items?: any[];
 }) => {
 	const formStatus = useFormStatus();
+	const { user } = useUser();
 
 	return (
 		<button
@@ -22,6 +24,7 @@ export const AddToCartButton = ({
 					currency: "PLN",
 					value: value,
 					items: items,
+					user_id: user?.id,
 				})
 			}
 			className="inline-flex h-14 w-full items-center justify-center rounded-md 

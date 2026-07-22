@@ -23,7 +23,15 @@ export default async function CartSuccessPage({
 
 	const session = await stripe.checkout.sessions.retrieve(
 		params.sessionId,
+		{ expand: ["line_items"] }
 	);
+
+	const items = session.line_items?.data.map((item) => ({
+		item_id: (item.price?.product as string) || item.id,
+		item_name: item.description,
+		price: item.price?.unit_amount ? item.price.unit_amount / 100 : 0,
+		quantity: item.quantity || 1,
+	})) || [];
 
 	return (
 		<div className="">
@@ -31,6 +39,7 @@ export default async function CartSuccessPage({
 				transactionId={session.id}
 				value={session.amount_total ? session.amount_total / 100 : 0}
 				currency={session.currency || "PLN"}
+				items={items}
 			/>
 			<h2 >Payment status: <span className="font-bold text-green-500">{session.payment_status}</span></h2>
 			<h3>Thanks for trust and buying at My-Little-Ecommerce</h3>
