@@ -10,6 +10,7 @@ import { formatMoney } from "@/app/utils";
 import { getProductById, getProductsList } from "@/api/products";
 import { getOrCreateCart, addToCart } from "@/api/cart";
 import { revalidatePath } from "next/cache";
+import { addToCartActionForm } from "@/app/product/actions";
 
 // export const generateStaticParams = async () => {
 // 	const products = await getProductsList();
@@ -63,12 +64,7 @@ export default async function SingleProductPage({
 		throw notFound();
 	}
 
-	async function addToCartAction(_formData: FormData) {
-		"use server";
-		const cart = await getOrCreateCart();
-		await addToCart(cart, product);
-		revalidatePath(`/product/${product.id}`);
-	}
+
 
 	const gaItems = [
 		{
@@ -118,7 +114,7 @@ export default async function SingleProductPage({
 							<p className="ml-1 text-sm font-semibold ">In stock</p>
 						</div>
 						<div className="mt-8">
-							<form action={addToCartAction}>
+							<form action={addToCartActionForm}>
 								<input
 									type="hidden"
 									name="productId"

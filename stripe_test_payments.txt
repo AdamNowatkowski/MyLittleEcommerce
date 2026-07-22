@@ -1,5 +1,10 @@
+
+Test Decline
 Description	Number	Error code	Decline code
-
 Generic decline	4000000000000002	card_declined	generic_decline
-United States (US)	4242424242424242	Visa
 
+
+
+Test Success
+Brand	Number	CVC	Date
+Visa	4242424242424242	Any 3 digits	Any future date

@@ -3,6 +3,22 @@
 import { type ProductListItemFragment } from "@/gql/graphql";
 import { createReview, publishReview } from "@/api/reviews";
 import { revalidatePath, revalidateTag } from "next/cache";
+import { getProductById } from "@/api/products";
+import { getOrCreateCart, addToCart } from "@/api/cart";
+
+export async function addToCartActionForm(formData: FormData) {
+	const productId = formData.get("productId") as string;
+	if (!productId) throw new Error("Missing productId");
+
+	const products = await getProductById(productId);
+	const product = products[0];
+	if (!product) throw new Error("Product not found");
+
+	const cart = await getOrCreateCart();
+	await addToCart(cart, product);
+	
+	revalidatePath(`/product/${product.id}`);
+}
 
 export async function createReviewAction(
 	newReview: {		
