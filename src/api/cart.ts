@@ -41,14 +41,19 @@ export async function getCartById(cartId: string) {
 export async function getCartFromCookies() {
 	const cartId = (await cookies()).get("cartId")?.value;
 	if (cartId) {
-		const cart = await executeGraphql({
-			query: CartGetByIdDocument,
-			variables: { id: cartId },
-			next: { tags: ["cart"]},
-			cache: "no-store",
-		});
-		if (cart.order) {
-			return cart.order;
+		try {
+			const cart = await executeGraphql({
+				query: CartGetByIdDocument,
+				variables: { id: cartId },
+				next: { tags: ["cart"] },
+				cache: "no-store",
+			});
+			if (cart.order) {
+				return cart.order;
+			}
+		} catch (error) {
+			console.error("Cart fetch error:", error);
+			return undefined;
 		}
 	}
 }
